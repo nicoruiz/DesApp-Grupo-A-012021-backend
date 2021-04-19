@@ -5,11 +5,3 @@ jdk:
 
 before_install:
   - chmod +x gradlew
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: $HEROKU_API_KEY
-  app:
-    main: desapp-api-staging
-    production: desapp-api-production
