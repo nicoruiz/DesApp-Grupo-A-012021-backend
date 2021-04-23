@@ -12,17 +12,17 @@ public class Title {
     public String primaryTitle;
     public String originalTitle;
     public boolean isAdult;
-    public Date startYear;
-    public Date endYear;
+    public Integer startYear;
+    public Integer endYear;
     public String genres;
 
     public Title() {}
 
-    public Title(String id, String titleType, String primaryTitle, String originalTitle, boolean isAdult, Date startYear, Date endYear, String genres) {
+    public Title(String id, String titleType, String primaryTitle, String originalTitle, boolean isAdult, Integer startYear, Integer endYear, String genres) {
         this.id = id;
         this.titleType = titleType;
-        this. primaryTitle = primaryTitle;
-        this. originalTitle = originalTitle;
+        this.primaryTitle = primaryTitle;
+        this.originalTitle = originalTitle;
         this.isAdult = isAdult;
         this.startYear = startYear;
         this.endYear = endYear;
