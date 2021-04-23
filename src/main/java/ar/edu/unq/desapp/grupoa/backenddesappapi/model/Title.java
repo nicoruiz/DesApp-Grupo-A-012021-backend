@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Title {
@@ -15,9 +14,11 @@ public class Title {
     public boolean isAdult;
     public Date startYear;
     public Date endYear;
-    //public List<String> genres;
+    public String genres;
 
-    public Title(String id, String titleType, String primaryTitle, String originalTitle, boolean isAdult, Date startYear, Date endYear) {
+    public Title() {}
+
+    public Title(String id, String titleType, String primaryTitle, String originalTitle, boolean isAdult, Date startYear, Date endYear, String genres) {
         this.id = id;
         this.titleType = titleType;
         this. primaryTitle = primaryTitle;
@@ -25,6 +26,6 @@ public class Title {
         this.isAdult = isAdult;
         this.startYear = startYear;
         this.endYear = endYear;
-        //this.genres = genres;
+        this.genres = genres;
     }
 }

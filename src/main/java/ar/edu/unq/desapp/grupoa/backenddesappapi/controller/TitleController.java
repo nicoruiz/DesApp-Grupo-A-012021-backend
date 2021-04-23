@@ -1,7 +1,7 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.controller.rest;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.service.TitlesService;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.service.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class TitlesController {
+public class TitleController {
     @Autowired
-    private TitlesService titlesService;
+    private TitleService titleService;
 
     @GetMapping("/titles")
     public List<Title> getTitles() {
-        return this.titlesService.getAllDummy();
+        return this.titleService.getAll();
     }
 }
