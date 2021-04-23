@@ -7,5 +7,7 @@ services:
   - mysql
 
 before_install:
+  - mysql -e 'CREATE DATABASE resena;'
+  - mysql -e 'USE resena;'
   - chmod +x gradlew
 
