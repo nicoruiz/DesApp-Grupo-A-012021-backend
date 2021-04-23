@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public class TitleService implements ITitleService{
     @Autowired
-    private TitleRepository repository;
+    private TitleRepository titleRepository;
 
     public List<Title> getAll() {
-        return (List<Title>) this.repository.findAll();
+        return (List<Title>) this.titleRepository.findAll();
     }
 }
