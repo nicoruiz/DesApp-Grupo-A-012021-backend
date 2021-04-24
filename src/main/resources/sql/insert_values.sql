@@ -1,6 +1,6 @@
 USE resena;
 
-INSERT INTO titles VALUES
+INSERT INTO title VALUES
     ('tt0000001','short','Carmencita','Carmencita',0,1894,'\\N','1','Documentary,Short'),
     ('tt0000002','short','Le clown et ses chiens','Le clown et ses chiens',0,1892,'\\N','5','Animation,Short'),
     ('tt0000003','short','Pauvre Pierrot','Pauvre Pierrot',0,1892,'\\N','4','Animation,Comedy,Romance'),
