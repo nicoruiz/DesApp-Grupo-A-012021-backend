@@ -1,8 +1,10 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class Title {
@@ -15,6 +17,9 @@ public class Title {
     public Integer startYear;
     public Integer endYear;
     public String genres;
+    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("title")
+    public Collection<Cast> cast = new ArrayList<Cast>();
 
     public Title() {}
 

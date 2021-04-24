@@ -1,17 +1,5 @@
-CREATE DATABASE IF NOT EXISTS resena;
 USE resena;
 
-CREATE TABLE IF NOT EXISTS titles (
-    `id` VARCHAR(9) PRIMARY KEY NOT NULL,
-    `titleType` VARCHAR(5),
-    `primaryTitle` VARCHAR(100),
-    `originalTitle` VARCHAR(100),
-    `isAdult` INT,
-    `startYear` INT,
-    `endYear` VARCHAR(2),
-    `runtimeMinutes` VARCHAR(2),
-    `genres` VARCHAR(24)
-);
 INSERT INTO titles VALUES
     ('tt0000001','short','Carmencita','Carmencita',0,1894,'\\N','1','Documentary,Short'),
     ('tt0000002','short','Le clown et ses chiens','Le clown et ses chiens',0,1892,'\\N','5','Animation,Short'),
@@ -200,3 +188,15 @@ INSERT INTO titles VALUES
     ('tt0000187','short','La cène','La cène',0,1898,'\\N','1','Short'),
     ('tt0000188','short','The Deserter','The Deserter',0,1898,'\\N','\\N','Drama,Short'),
     ('tt0000189','short','Dorotea','Dorotea',0,1898,'\\N','\\N','Short')
+
+INSERT INTO actor (birth_year, death_year, primary_name, professions)
+VALUES 
+    (1868,1910,'Carmencita','soundtrack'),
+    (1860,1935,'William K.L. Dickson','cinematographer,director,producer'),
+    (1847,1910,'William Heise','cinematographer,director,producer')
+
+INSERT INTO cast (title_id, actor_id, category, characters, job, ordering)
+VALUES
+    ('tt0000001',1,'self',NULL,'Self',1),
+    ('tt0000001',2,'director',NULL,NULL,2),
+    ('tt0000001',3,'cinematographer','director of photography',NULL,3)
