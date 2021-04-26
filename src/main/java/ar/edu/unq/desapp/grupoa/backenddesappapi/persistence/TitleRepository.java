@@ -1,9 +1,8 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.persistence;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface TitleRepository extends CrudRepository<Title, String> {
+public interface TitleRepository extends JpaRepository<Title, String> {
+    
 }

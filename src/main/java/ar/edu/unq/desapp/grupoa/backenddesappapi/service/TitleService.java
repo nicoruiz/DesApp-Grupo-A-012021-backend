@@ -5,16 +5,15 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class TitleService implements ITitleService{
+public class TitleService {
+
     @Autowired
     private TitleRepository titleRepository;
 
     public List<Title> getAll() {
-        return (List<Title>) this.titleRepository.findAll();
+        return titleRepository.findAll();
     }
 }
