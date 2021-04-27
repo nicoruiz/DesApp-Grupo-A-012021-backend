@@ -1,15 +1,10 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
 import java.io.Serializable;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import java.util.*;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
@@ -20,13 +15,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String primaryName;
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    })
-    @JoinTable(name = "title_person",
-            joinColumns = @JoinColumn(name = "title_id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id")
-    )
-    private Set<Title> titles;
+    @ManyToMany(mappedBy = "persons")
+    @JsonIgnoreProperties("persons")
+    private List<Title> titles;
 }

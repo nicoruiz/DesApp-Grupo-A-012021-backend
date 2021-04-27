@@ -1,9 +1,11 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
@@ -15,12 +17,18 @@ public class Title implements Serializable {
     @Enumerated(EnumType.STRING)
     private TitleType titleType;
     private String primaryTitle;
+    private int isAdult;
     private int startYear;
-    private int endYear;
+    private Integer endYear;
     private String genres;
-    @ManyToMany(mappedBy = "titles")
-    private Set<Person> persons;
+    @ManyToMany
+    @JoinTable(
+            name = "title_person",
+            joinColumns = @JoinColumn(name = "title_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id"))
+    @JsonIgnoreProperties("titles")
+    private List<Person> persons;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "title_id")
-    private Set<Episode> episodes;
+    private List<Episode> episodes;
 }
