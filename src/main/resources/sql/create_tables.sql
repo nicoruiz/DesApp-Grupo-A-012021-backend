@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS title (
     `id` VARCHAR(9) PRIMARY KEY NOT NULL,
     `title_type` VARCHAR(50) NOT NULL,
     `primary_title` VARCHAR(100) NOT NULL,
+    `is_adult` INT NOT NULL,
     `start_year` INT NOT NULL,
     `end_year` INT DEFAULT NULL,
     `genres` VARCHAR(1000)
