@@ -1,7 +1,7 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.controller;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.service.TitleService;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.services.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -2,9 +2,17 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
 import java.io.Serializable;
 import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 
-import javax.persistence.*;
-
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.TitleType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -31,4 +39,10 @@ public class Title implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "title_id")
     private List<Episode> episodes;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "title_id")
+    private List<UserReview> userReviews;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "title_id")
+    private List<PremiumReview> premiumReviews;
 }

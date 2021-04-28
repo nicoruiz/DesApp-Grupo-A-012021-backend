@@ -32,3 +32,34 @@ CREATE TABLE IF NOT EXISTS episode (
     FOREIGN KEY (`title_id`) REFERENCES title(`id`),
     PRIMARY KEY (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS user_review (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `body` VARCHAR(255) DEFAULT NULL,
+    `date` datetime DEFAULT NULL,
+    `language` VARCHAR(255) DEFAULT NULL,
+    `platform_type` VARCHAR(255) DEFAULT NULL,
+    `platform_user_id` INT NOT NULL,
+    `rating` INT NOT NULL,
+    `title` VARCHAR(255) DEFAULT NULL,
+    `has_spoiler` bit(1) NOT NULL,
+    `localization` VARCHAR(255) DEFAULT NULL,
+    `username` VARCHAR(255) DEFAULT NULL,
+    `title_id` VARCHAR(9) NOT NULL,
+    FOREIGN KEY (`title_id`) REFERENCES title(`id`),
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS premium_review (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `body` VARCHAR(255) DEFAULT NULL,
+    `date` datetime DEFAULT NULL,
+    `language` VARCHAR(255) DEFAULT NULL,
+    `platform_type` VARCHAR(255) DEFAULT NULL,
+    `platform_user_id` INT NOT NULL,
+    `rating` INT NOT NULL,
+    `title` VARCHAR(255) DEFAULT NULL,
+    `title_id` varchar(9) NOT NULL,
+    FOREIGN KEY (`title_id`) REFERENCES title(`id`),
+    PRIMARY KEY (`id`)
+);
