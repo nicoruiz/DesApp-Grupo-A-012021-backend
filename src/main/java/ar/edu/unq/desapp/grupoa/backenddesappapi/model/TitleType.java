@@ -6,5 +6,6 @@ public enum TitleType {
     MOVIE,
     TVEPISODE,
     TVSERIES,
-    VIDEO;
+    VIDEO,
+    TVMINISERIES;
 }
