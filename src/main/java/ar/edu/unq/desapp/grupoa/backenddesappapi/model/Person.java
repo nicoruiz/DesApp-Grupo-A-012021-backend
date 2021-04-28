@@ -16,8 +16,7 @@ import lombok.Data;
 public class Person implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String primaryName;
     @ManyToMany(mappedBy = "persons")
     @JsonIgnoreProperties("persons")

@@ -12,14 +12,13 @@ CREATE TABLE IF NOT EXISTS title (
 );
 
 CREATE TABLE IF NOT EXISTS person (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `primary_name` VARCHAR(100),
-    PRIMARY KEY (`id`)
+    `id` VARCHAR(9) PRIMARY KEY NOT NULL,
+    `primary_name` VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS title_person (
     `title_id` VARCHAR(9) NOT NULL,
-    `person_id` INT NOT NULL,
+    `person_id` VARCHAR(9) NOT NULL,
     FOREIGN KEY (`title_id`) REFERENCES title(`id`),
     FOREIGN KEY (`person_id`) REFERENCES person(`id`)
 );
