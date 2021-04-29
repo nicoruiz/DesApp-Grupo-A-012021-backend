@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.PremiumReview;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.UserReview;
@@ -24,8 +25,14 @@ public class ReviewController {
         return ResponseEntity.ok().body(reviews);
     }
 
-    @PostMapping(value = "/reviews/{titleId}")
-    public ResponseEntity<Review> createReview(@RequestBody UserReview review, @PathVariable String titleId) {
+    @PostMapping(value = "/reviews/{titleId}/user")
+    public ResponseEntity<Review> createUserReview(@RequestBody UserReview review, @PathVariable String titleId) {
+        Review created = this.reviewService.create(review, titleId);
+        return ResponseEntity.ok().body(created);
+    }
+
+    @PostMapping(value = "/reviews/{titleId}/premium")
+    public ResponseEntity<Review> createPremiumReview(@RequestBody PremiumReview review, @PathVariable String titleId) {
         Review created = this.reviewService.create(review, titleId);
         return ResponseEntity.ok().body(created);
     }

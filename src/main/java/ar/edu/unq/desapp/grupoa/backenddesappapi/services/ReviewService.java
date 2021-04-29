@@ -18,6 +18,7 @@ public class ReviewService {
     private TitleRepository titleRepository;
 
     public Review create(Review review, String titleId) {
+        // Check if title exists
         Title title = titleRepository.findById(titleId).get();
         review.setTitle(title);
         return this.reviewRepository.save(review);

@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS episode (
 CREATE TABLE IF NOT EXISTS review (
     `id` INT NOT NULL AUTO_INCREMENT,
     `body` VARCHAR(255) DEFAULT NULL,
-    `date` datetime DEFAULT NULL,
+    `createdOn` date DEFAULT NULL,
     `language` VARCHAR(255) DEFAULT NULL,
     `platform_type` VARCHAR(255) DEFAULT NULL,
     `platform_user_id` INT NOT NULL,
