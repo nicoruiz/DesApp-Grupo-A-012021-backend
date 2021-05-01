@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Entity(name="review")
+@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="review_type", discriminatorType = DiscriminatorType.INTEGER)
 public class Review {

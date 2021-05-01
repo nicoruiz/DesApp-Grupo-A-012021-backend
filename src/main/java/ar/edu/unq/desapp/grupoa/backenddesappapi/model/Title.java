@@ -10,6 +10,9 @@ import lombok.Data;
 
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="is_episode", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorValue("0")
 public class Title implements Serializable {
 
     @Id
@@ -30,8 +33,6 @@ public class Title implements Serializable {
     private List<Person> persons;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "title_id")
-    private List<Episode> episodes;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "title_id")
+    @JsonIgnoreProperties("title")
     private List<Review> reviews;
 }

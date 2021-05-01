@@ -23,13 +23,13 @@ CREATE TABLE IF NOT EXISTS title_person (
     FOREIGN KEY (`person_id`) REFERENCES person(`id`)
 );
 
-CREATE TABLE IF NOT EXISTS episode (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `title_id` VARCHAR(9) NOT NULL,
+CREATE TABLE IF NOT EXISTS episode_detail (
+    `episode_id` VARCHAR(9) NOT NULL,
+    `serie_id` VARCHAR(9) NOT NULL,
     `season_number` INT NOT NULL,
     `episode_number` INT NOT NULL,
-    FOREIGN KEY (`title_id`) REFERENCES title(`id`),
-    PRIMARY KEY (`id`)
+    FOREIGN KEY (`episode_id`) REFERENCES title(`id`),
+    FOREIGN KEY (`serie_id`) REFERENCES title(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS review (

@@ -7,8 +7,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @DiscriminatorValue("2")
 public class PremiumReview extends Review implements Serializable {

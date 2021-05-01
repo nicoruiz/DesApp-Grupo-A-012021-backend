@@ -1,19 +1,19 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-public class Episode implements Serializable {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private int seasonNumber;
-    private int episodeNumber;
+@Table
+@DiscriminatorValue("1")
+public class Episode extends Title implements Serializable {
+    @OneToOne(mappedBy = "episode")
+    @JsonIgnoreProperties("episode")
+    private EpisodeDetail episodeDetail;
 }
