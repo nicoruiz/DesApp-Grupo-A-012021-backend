@@ -6,13 +6,12 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.PlatformType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
 @SpringBootTest
 public class ReviewTests {
 
     @Test
-    public void testSetTitleToUserReview_UserReviewHasTitleAssigned() {
+    public void testCreateUserReview_UserReviewHasTitleAssigned() {
         Title aTitle = TitleBuilder.aTitle()
                         .withPrimaryTitle("Mortal Kombat")
                         .withGenres("Action")

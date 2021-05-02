@@ -30,31 +30,31 @@ public class TitleBuilder {
         titleType = aTitleType;
         return this;
     }
-    public TitleBuilder withPrimaryTitle(String aPrimaryTitle) {
+    public TitleBuilder withPrimaryTitle(final String aPrimaryTitle) {
         primaryTitle = aPrimaryTitle;
         return this;
     }
-    public TitleBuilder withIsAdult(int anIsAdult) {
+    public TitleBuilder withIsAdult(final int anIsAdult) {
         isAdult = anIsAdult;
         return this;
     }
-    public TitleBuilder withStartYear(int aStartYear) {
+    public TitleBuilder withStartYear(final int aStartYear) {
         startYear = aStartYear;
         return this;
     }
-    public TitleBuilder withEndYear(int anEndYear) {
+    public TitleBuilder withEndYear(final int anEndYear) {
         endYear = anEndYear;
         return this;
     }
-    public TitleBuilder withGenres(String someGenres) {
+    public TitleBuilder withGenres(final String someGenres) {
         genres = someGenres;
         return this;
     }
-    public TitleBuilder withPersons(List<Person> somePersons) {
+    public TitleBuilder withPersons(final List<Person> somePersons) {
         persons = somePersons;
         return this;
     }
-    public TitleBuilder withReviews(List<Review> someReviews) {
+    public TitleBuilder withReviews(final List<Review> someReviews) {
         reviews = someReviews;
         return this;
     }
