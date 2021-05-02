@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'war'
 	id 'idea'
+	id 'jacoco'
 }
 
 compileJava.options.encoding = 'utf-8'
@@ -42,4 +43,14 @@ test {
 		events "passed", "skipped", "failed"
 		exceptionFormat "full"
 	}
+	finalizedBy jacocoTestReport
+}
+
+jacoco {
+	toolVersion = "0.8.5"
+	reportsDir = file("$buildDir/jacoco")
+}
+
+jacocoTestReport {
+	dependsOn test
 }
