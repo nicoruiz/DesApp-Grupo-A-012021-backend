@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;

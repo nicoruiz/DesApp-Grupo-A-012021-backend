@@ -28,6 +28,8 @@ public class Review {
     @JoinColumn(name = "title_id", referencedColumnName = "id")
     @JsonIgnoreProperties("reviews")
     private Title title;
+    private int likes;
+    private int dislikes;
 
     public Review() {}
 
@@ -41,5 +43,13 @@ public class Review {
         this.platformUserId = platformUserId;
         this.language = language;
         this.title = title;
+    }
+    
+    public void like() {
+        likes++;
+    }
+    
+    public void dislike() {
+        dislikes++;
     }
 }

@@ -4,15 +4,11 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.PremiumReviewBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.TitleBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.UserReviewBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.PremiumReview;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.UserReview;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.mock;

@@ -44,6 +44,8 @@ CREATE TABLE IF NOT EXISTS review (
     `has_spoiler` bit(1) DEFAULT NULL,
     `localization` VARCHAR(255) DEFAULT NULL,
     `username` VARCHAR(255) DEFAULT NULL,
+    `likes` INT DEFAULT 0,
+    `dislikes` INT DEFAULT 0,
     `title_id` VARCHAR(9) NOT NULL,
     FOREIGN KEY (`title_id`) REFERENCES title(`id`),
     PRIMARY KEY (`id`)
