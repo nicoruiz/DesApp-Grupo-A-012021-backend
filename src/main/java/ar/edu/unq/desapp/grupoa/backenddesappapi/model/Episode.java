@@ -16,4 +16,8 @@ public class Episode extends Title implements Serializable {
     @OneToOne(mappedBy = "episode")
     @JsonIgnoreProperties("episode")
     private EpisodeDetail episodeDetail;
+
+    public Episode() {
+        super();
+    }
 }

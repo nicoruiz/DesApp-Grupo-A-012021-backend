@@ -35,4 +35,18 @@ public class Title implements Serializable {
     @JoinColumn(name = "title_id")
     @JsonIgnoreProperties("title")
     private List<Review> reviews;
+
+    public Title() {}
+
+    public Title(String id, TitleType titleType, String primaryTitle, int isAdult, int startYear, Integer endYear, String genres, List<Person> persons, List<Review> reviews) {
+        this.id = id;
+        this.titleType = titleType;
+        this.primaryTitle = primaryTitle;
+        this.isAdult = isAdult;
+        this.startYear = startYear;
+        this.endYear = endYear;
+        this.genres = genres;
+        this.persons = persons;
+        this.reviews = reviews;
+    }
 }

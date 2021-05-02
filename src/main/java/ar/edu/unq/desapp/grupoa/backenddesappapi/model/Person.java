@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 public class Person implements Serializable {
-    
+
     @Id
     private String id;
     private String primaryName;
