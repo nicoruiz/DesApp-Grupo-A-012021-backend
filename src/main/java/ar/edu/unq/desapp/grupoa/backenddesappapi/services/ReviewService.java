@@ -27,4 +27,9 @@ public class ReviewService {
     public List<Review> getAll() {
         return reviewRepository.findAll();
     }
+
+    public List<Review> getByTitle(String titleId) {
+        Title title = titleRepository.findById(titleId).get();
+        return title.getReviews();
+    }
 }

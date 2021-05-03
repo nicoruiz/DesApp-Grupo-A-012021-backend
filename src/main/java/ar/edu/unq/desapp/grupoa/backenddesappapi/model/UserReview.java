@@ -18,6 +18,8 @@ public class UserReview extends Review implements Serializable {
     private String username;
     private String localization;
 
+    public UserReview() {}
+
     public UserReview(long id, String resume, String body, int rating, Date createdOn, PlatformType platformType, int platformUserId, String language, Title title, boolean hasSpoiler, String username, String localization) {
         super(id, resume, body, rating, createdOn, platformType, platformUserId, language, title);
         this.hasSpoiler = hasSpoiler;

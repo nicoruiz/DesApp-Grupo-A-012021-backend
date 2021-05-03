@@ -26,6 +26,10 @@ public class TitleBuilder {
     public Title build() {
         return new Title(id, titleType, primaryTitle, isAdult, startYear, endYear, genres, persons, reviews);
     }
+    public TitleBuilder withId(final String anId) {
+        id = anId;
+        return this;
+    }
     public TitleBuilder withTitleType(final TitleType aTitleType) {
         titleType = aTitleType;
         return this;
