@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.TitleNotFoundException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class ReviewService {
 
     public Review create(Review review, String titleId) {
         // Check if title exists
-        Title title = titleRepository.findById(titleId).get();
+        Title title = titleRepository.findById(titleId)
+                .orElseThrow(() -> new TitleNotFoundException(titleId));
         review.setTitle(title);
         return this.reviewRepository.save(review);
     }
@@ -29,7 +31,8 @@ public class ReviewService {
     }
 
     public List<Review> getByTitle(String titleId) {
-        Title title = titleRepository.findById(titleId).get();
+        Title title = titleRepository.findById(titleId)
+                .orElseThrow(() -> new TitleNotFoundException(titleId));
         return title.getReviews();
     }
 }

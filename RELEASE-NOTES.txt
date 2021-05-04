@@ -1,0 +1,14 @@
+---------------------------------------------------------------------
+Release 1.0
+---------------------------------------------------------------------
+NEW FEATURES:
+* Add a Review (User or Premium)
+* Value a Review (like or dislike)
+* Get Reviews (all of them or from a specific Title)
+* Get Titles or a specific one (by id)
+
+NOTES:
+* No endpoints declared to like or dislike a Review from our API
+
+KNOWN ISSUES:
+* No exception handling from our API (errors are returned as 500 internal server error)
