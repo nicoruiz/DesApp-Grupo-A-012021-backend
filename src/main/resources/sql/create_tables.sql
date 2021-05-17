@@ -50,3 +50,10 @@ CREATE TABLE IF NOT EXISTS review (
     FOREIGN KEY (`title_id`) REFERENCES title(`id`),
     PRIMARY KEY (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS user (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+);
