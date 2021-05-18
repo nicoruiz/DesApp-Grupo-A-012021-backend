@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table
 @DiscriminatorValue("1")
 public class Episode extends Title implements Serializable {
     @OneToOne(mappedBy = "episode")
