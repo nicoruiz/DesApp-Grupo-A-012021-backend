@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Api( tags = "Reviews")
+@Api(tags = "Reviews")
 public class ReviewController {
 
     @Autowired

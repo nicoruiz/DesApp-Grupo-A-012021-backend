@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@Api( tags = "Titles")
+@Api(tags = "Titles")
 public class TitleController {
 
     @Autowired
