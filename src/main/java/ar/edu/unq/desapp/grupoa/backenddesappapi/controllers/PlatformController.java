@@ -4,17 +4,15 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.AuthRequestDto
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.JwtResponseDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.PlatformDetailsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.RegistrationResponseDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.PlatformsService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
+@EnableAutoConfiguration
 @Api(tags = "Platforms")
 public class PlatformController {
 

@@ -34,7 +34,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
-        // TODO: Verify that username indicated in the URL Path is the same as the token one
+        // TODO: Verify that platform's username indicated in the URL Path is the same as the token one
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             username = jwtTokenUtil.getUsernameFromToken(jwt);
