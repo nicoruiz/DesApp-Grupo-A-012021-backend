@@ -15,22 +15,25 @@ import java.util.Collections;
 import java.util.List;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
     @Bean
     public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()))
+                .securitySchemes(Arrays.asList(bearerToken(), apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("ar.edu.unq.desapp.grupoa.backenddesappapi"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    private ApiKey apiKey() {
+    private ApiKey bearerToken() {
         return new ApiKey("JWT", "Authorization", "header");
+    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("API-KEY", "API-KEY", "header");
     }
 
     private ApiInfo apiInfo() {
@@ -53,6 +56,9 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+        return Arrays.asList(
+                new SecurityReference("JWT", authorizationScopes),
+                new SecurityReference("API-KEY", authorizationScopes)
+        );
     }
 }

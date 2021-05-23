@@ -51,9 +51,10 @@ CREATE TABLE IF NOT EXISTS review (
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS platform (
     `id` INT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
+    `api_key` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );

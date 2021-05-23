@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.PremiumReview;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.UserReview;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.ReviewService;
 import io.swagger.annotations.Api;
