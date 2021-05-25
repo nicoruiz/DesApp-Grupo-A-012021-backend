@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,7 +12,9 @@ public class Platform implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String username;
+    @NotNull
     private String password;
     private String apiKey;
 

@@ -9,8 +9,5 @@ public class PlatformDetailsDto implements Serializable {
     private String platform;
     private String apiKey;
 
-    public PlatformDetailsDto(String platform, String apiKey) {
-        this.platform = platform;
-        this.apiKey = apiKey;
-    }
+    public PlatformDetailsDto() {}
 }

@@ -9,8 +9,5 @@ public class RegistrationResponseDto implements Serializable {
     private Long id;
     private String platform;
 
-    public RegistrationResponseDto(Long id, String platform) {
-        this.id = id;
-        this.platform = platform;
-    }
+    public RegistrationResponseDto() {}
 }

@@ -20,9 +20,8 @@ public class PlatformController {
     private PlatformsService platformsService;
 
     @PostMapping(value = "/authentication")
-    public ResponseEntity<JwtResponseDto> login(@RequestBody AuthRequestDto authRequestDto) throws Exception {
-            JwtResponseDto jwtToken = platformsService.createAuthToken(authRequestDto);
-            return ResponseEntity.ok(jwtToken);
+    public ResponseEntity<JwtResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
+            return ResponseEntity.ok(platformsService.login(authRequestDto));
     }
 
     @PostMapping(value = "/registration")
@@ -30,9 +29,8 @@ public class PlatformController {
         return ResponseEntity.ok(platformsService.register(authRequestDto));
     }
 
-    @GetMapping(value = "platforms/{name}")
+    @GetMapping(value = "/platforms/{name}")
     public ResponseEntity<PlatformDetailsDto> getPlatformDetails(@PathVariable String name) {
-        PlatformDetailsDto platformDetails = this.platformsService.getByUsername(name);
-        return ResponseEntity.ok().body(platformDetails);
+        return ResponseEntity.ok(this.platformsService.getPlatformDetails(name));
     }
 }
