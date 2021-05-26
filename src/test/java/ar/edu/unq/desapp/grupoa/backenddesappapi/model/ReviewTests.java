@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
+import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.PlatformBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.PremiumReviewBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.TitleBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.UserReviewBuilder;
@@ -21,7 +22,7 @@ public class ReviewTests {
         UserReview anUserReview = UserReviewBuilder.anUserReview()
                                     .withResume("Review MK 2021")
                                     .withBody("Podría haber estado mejor. Scorpion aparece recien al final.")
-                                    .withPlatformType(PlatformType.AMAZON_PRIME)
+                                    .withPlatform(PlatformBuilder.aPlatform().build())
                                     .withSpoiler(true)
                                     .withRating(3)
                                     .build();
@@ -41,7 +42,7 @@ public class ReviewTests {
         PremiumReview anPremiumReview = PremiumReviewBuilder.aPremiumReview()
                                           .withResume("Review Back to the Future 1985")
                                           .withBody("Genial actuacion de Michael Fox.")
-                                          .withPlatformType(PlatformType.NETFLIX)
+                                          .withPlatform(PlatformBuilder.aPlatform().build())
                                           .withRating(4)
                                           .build();
         
@@ -55,7 +56,7 @@ public class ReviewTests {
         UserReview anUserReview = UserReviewBuilder.anUserReview()
                                     .withResume("Review MK 2021")
                                     .withBody("Podría haber estado mejor. Scorpion aparece recien al final.")
-                                    .withPlatformType(PlatformType.AMAZON_PRIME)
+                                    .withPlatform(PlatformBuilder.aPlatform().build())
                                     .withSpoiler(true)
                                     .withRating(3)
                                     .build();
@@ -71,7 +72,7 @@ public class ReviewTests {
         UserReview anUserReview = UserReviewBuilder.anUserReview()
                                     .withResume("Review MK 2021")
                                     .withBody("Podría haber estado mejor. Scorpion aparece recien al final.")
-                                    .withPlatformType(PlatformType.AMAZON_PRIME)
+                                    .withPlatform(PlatformBuilder.aPlatform().build())
                                     .withSpoiler(true)
                                     .withRating(3)
                                     .build();

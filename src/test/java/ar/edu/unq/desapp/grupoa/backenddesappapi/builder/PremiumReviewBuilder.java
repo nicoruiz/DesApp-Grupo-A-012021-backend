@@ -8,6 +8,6 @@ public class PremiumReviewBuilder extends ReviewBuilder<PremiumReviewBuilder> {
     }
     @Override
     public PremiumReview build() {
-        return new PremiumReview(id, resume, body, rating, createdOn, platformType, platformUserId, language, title);
+        return new PremiumReview(id, resume, body, rating, createdOn, platform, platformUserId, language, title);
     }
 }

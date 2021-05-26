@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @DiscriminatorValue("1")
 public class Episode extends Title implements Serializable {
-    @OneToOne(mappedBy = "episode")
+    @OneToOne(mappedBy = "episode", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties("episode")
     private EpisodeDetail episodeDetail;
 

@@ -24,20 +24,22 @@ CREATE TABLE IF NOT EXISTS title_person (
 );
 
 CREATE TABLE IF NOT EXISTS episode_detail (
+    `id` INT NOT NULL AUTO_INCREMENT,
     `episode_id` VARCHAR(9) NOT NULL,
     `serie_id` VARCHAR(9) NOT NULL,
     `season_number` INT NOT NULL,
     `episode_number` INT NOT NULL,
     FOREIGN KEY (`episode_id`) REFERENCES title(`id`),
-    FOREIGN KEY (`serie_id`) REFERENCES title(`id`)
+    FOREIGN KEY (`serie_id`) REFERENCES title(`id`),
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS review (
     `id` INT NOT NULL AUTO_INCREMENT,
     `body` VARCHAR(255) DEFAULT NULL,
-    `createdOn` date DEFAULT NULL,
+    `created_on` date DEFAULT NULL,
     `language` VARCHAR(255) DEFAULT NULL,
-    `platform_type` VARCHAR(255) DEFAULT NULL,
+    `platform_id` INT NOT NULL,
     `platform_user_id` INT NOT NULL,
     `rating` INT NOT NULL,
     `resume` VARCHAR(255) DEFAULT NULL,
@@ -47,6 +49,7 @@ CREATE TABLE IF NOT EXISTS review (
     `likes` INT DEFAULT 0,
     `dislikes` INT DEFAULT 0,
     `title_id` VARCHAR(9) NOT NULL,
+    FOREIGN KEY (`platform_id`) REFERENCES platform(`id`),
     FOREIGN KEY (`title_id`) REFERENCES title(`id`),
     PRIMARY KEY (`id`)
 );

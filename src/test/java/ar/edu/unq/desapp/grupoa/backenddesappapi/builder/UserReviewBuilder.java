@@ -8,7 +8,7 @@ public class UserReviewBuilder extends ReviewBuilder<UserReviewBuilder> {
     }
     @Override
     public UserReview build() {
-        return new UserReview(id, resume, body, rating, createdOn, platformType, platformUserId, language, title, hasSpoiler, username, localization);
+        return new UserReview(id, resume, body, rating, createdOn, platform, platformUserId, language, title, hasSpoiler, username, localization);
     }
     private boolean hasSpoiler = false;
     private String username = "anUsername";

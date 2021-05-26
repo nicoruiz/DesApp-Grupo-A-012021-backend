@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.builder;
 
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.PlatformType;
@@ -12,7 +13,7 @@ public abstract class ReviewBuilder<T extends ReviewBuilder<T>> {
     protected String body = "a body";
     protected int rating = 5;
     protected Date createdOn = new Date();
-    protected PlatformType platformType = PlatformType.NETFLIX;
+    protected Platform platform = PlatformBuilder.aPlatform().build();
     protected int platformUserId = 1;
     protected String language = "ES";
     protected Title title;
@@ -33,8 +34,8 @@ public abstract class ReviewBuilder<T extends ReviewBuilder<T>> {
         createdOn = aCreatedOn;
         return self();
     }
-    public T withPlatformType(final PlatformType aPlatformType) {
-        platformType = aPlatformType;
+    public T withPlatform(final Platform aPlatform) {
+        platform = aPlatform;
         return self();
     }
     public T withPlatformUserId(final int aPlatformUserId) {

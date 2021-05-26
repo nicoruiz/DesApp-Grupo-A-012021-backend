@@ -2,7 +2,9 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.utils;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.PlatformDetailsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.RegistrationResponseDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
