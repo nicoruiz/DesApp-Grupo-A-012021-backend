@@ -14,11 +14,13 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
+@Transactional
 @Service
 public class ReviewService {
     @Autowired
@@ -46,6 +48,7 @@ public class ReviewService {
 
     public List<ReviewDto> getAll() {
         List<Review> reviews = reviewRepository.findAll();
+
         return Arrays.asList(mapperUtil.getMapper().map(reviews, ReviewDto[].class));
     }
 

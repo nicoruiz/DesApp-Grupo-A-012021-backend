@@ -28,29 +28,25 @@ public class ReviewController {
 
     @GetMapping("/reviews")
     public ResponseEntity<List<ReviewDto>> getReviews() {
-        List<ReviewDto> reviews = this.reviewService.getAll();
-        return ResponseEntity.ok().body(reviews);
+        return ResponseEntity.ok().body(reviewService.getAll());
     }
 
     @GetMapping("/reviews/{titleId}")
     public ResponseEntity<List<ReviewDto>> getReviewsByTitle(@PathVariable String titleId) {
-        List<ReviewDto> reviews = this.reviewService.getByTitle(titleId);
-        return ResponseEntity.ok().body(reviews);
+        return ResponseEntity.ok().body(reviewService.getByTitle(titleId));
     }
 
     @PostMapping(value = "/reviews/{titleId}/user")
     public ResponseEntity<ReviewDto> createUserReview(@RequestBody CreateUserReviewDto createReviewDto, @PathVariable String titleId) {
         Review newReview = mapperUtil.getMapper().map(createReviewDto, UserReview.class);
 
-        ReviewDto created = this.reviewService.create(newReview, titleId);
-        return ResponseEntity.ok().body(created);
+        return ResponseEntity.ok().body(reviewService.create(newReview, titleId));
     }
 
     @PostMapping(value = "/reviews/{titleId}/premium")
     public ResponseEntity<ReviewDto> createPremiumReview(@RequestBody CreatePremiumReviewDto createReviewDto, @PathVariable String titleId) {
         Review newReview = mapperUtil.getMapper().map(createReviewDto, PremiumReview.class);
 
-        ReviewDto created = this.reviewService.create(newReview, titleId);
-        return ResponseEntity.ok().body(created);
+        return ResponseEntity.ok().body(reviewService.create(newReview, titleId));
     }
 }

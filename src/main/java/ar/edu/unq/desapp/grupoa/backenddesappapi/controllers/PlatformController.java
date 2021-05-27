@@ -31,6 +31,6 @@ public class PlatformController {
 
     @GetMapping(value = "/platforms/{name}")
     public ResponseEntity<PlatformDetailsDto> getPlatformDetails(@PathVariable String name) {
-        return ResponseEntity.ok(this.platformsService.getPlatformDetails(name));
+        return ResponseEntity.ok(platformsService.getPlatformDetails(name));
     }
 }
