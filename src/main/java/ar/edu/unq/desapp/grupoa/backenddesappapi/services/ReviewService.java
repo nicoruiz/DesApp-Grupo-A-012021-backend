@@ -1,22 +1,27 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreatePremiumReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.PremiumReview;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.PlatformRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecs;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,14 +36,17 @@ public class ReviewService {
     private PlatformRepository platformRepository;
     @Autowired
     private MapperUtil mapperUtil;
+    @Autowired
+    private ReviewSpecs reviewSpecs;
 
-    public ReviewDto create(Review newReview, String titleId) {
+    public ReviewDto create(CreateReviewDto createReviewDto, String titleId) {
         Title title = titleRepository.findById(titleId)
                 .orElseThrow(() -> new EntityNotFoundException(Title.class.getSimpleName(), titleId));
 
-        Platform platform = platformRepository.findById(newReview.getPlatform().getId())
-                .orElseThrow(() -> new EntityNotFoundException(Platform.class.getSimpleName(), newReview.getPlatform().getId()));
+        Platform platform = platformRepository.findById(createReviewDto.getPlatformId())
+                .orElseThrow(() -> new EntityNotFoundException(Platform.class.getSimpleName(), createReviewDto.getPlatformId()));
 
+        Review newReview = mapperUtil.getMapper().map(createReviewDto, Review.class);
         newReview.setTitle(title);
         newReview.setPlatform(platform);
         reviewRepository.save(newReview);
@@ -46,17 +54,16 @@ public class ReviewService {
         return mapperUtil.getMapper().map(newReview, ReviewDto.class);
     }
 
-    public List<ReviewDto> getAll() {
-        List<Review> reviews = reviewRepository.findAll();
+    public List<ReviewDto> getAll(Pageable pagingSort) {
+        Page<Review> reviews = reviewRepository.findAll(pagingSort);
 
-        return Arrays.asList(mapperUtil.getMapper().map(reviews, ReviewDto[].class));
+        return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
     }
 
-    public List<ReviewDto> getByTitle(String titleId) {
-        Title title = titleRepository.findById(titleId)
-                .orElseThrow(() -> new EntityNotFoundException(Title.class.getSimpleName(), titleId));
-        List<Review> reviews = title.getReviews();
+    public List<ReviewDto> getByCriteria(String titleId, String platform, Boolean spoiler, String type, Pageable pagingSort) {
+        Specification<Review> specs = reviewSpecs.buildCriteriaSpecs(titleId, platform, spoiler, type);
+        Page<Review> reviews = reviewRepository.findAll(specs, pagingSort);
 
-        return Arrays.asList(mapperUtil.getMapper().map(reviews, ReviewDto[].class));
+        return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
     }
 }

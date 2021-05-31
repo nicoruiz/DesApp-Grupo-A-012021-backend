@@ -1,16 +1,16 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreatePremiumReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateUserReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.PremiumReview;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.UserReview;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.ReviewService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.SortHelper;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,28 +25,37 @@ public class ReviewController {
     private ReviewService reviewService;
     @Autowired
     private MapperUtil mapperUtil;
+    @Autowired
+    private SortHelper sortHelper;
 
     @GetMapping("/reviews")
-    public ResponseEntity<List<ReviewDto>> getReviews() {
-        return ResponseEntity.ok().body(reviewService.getAll());
+    public ResponseEntity<List<ReviewDto>> getReviews(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "createdOn,desc") String[] sort)
+    {
+        Pageable pagingSort = PageRequest.of(page, size, Sort.by(sortHelper.getSort(sort)));
+
+        return ResponseEntity.ok().body(reviewService.getAll(pagingSort));
     }
 
     @GetMapping("/reviews/{titleId}")
-    public ResponseEntity<List<ReviewDto>> getReviewsByTitle(@PathVariable String titleId) {
-        return ResponseEntity.ok().body(reviewService.getByTitle(titleId));
+    public ResponseEntity<List<ReviewDto>> getReviewsByTitle(
+            @PathVariable String titleId,
+            @RequestParam(required = false) String platform,
+            @RequestParam(required = false) Boolean spoiler,
+            @RequestParam(required = false) String type,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "createdOn,desc") String[] sort)
+    {
+        Pageable pagingSort = PageRequest.of(page, size, Sort.by(sortHelper.getSort(sort)));
+
+        return ResponseEntity.ok().body(reviewService.getByCriteria(titleId, platform, spoiler, type, pagingSort));
     }
 
-    @PostMapping(value = "/reviews/{titleId}/user")
-    public ResponseEntity<ReviewDto> createUserReview(@RequestBody CreateUserReviewDto createReviewDto, @PathVariable String titleId) {
-        Review newReview = mapperUtil.getMapper().map(createReviewDto, UserReview.class);
-
-        return ResponseEntity.ok().body(reviewService.create(newReview, titleId));
-    }
-
-    @PostMapping(value = "/reviews/{titleId}/premium")
-    public ResponseEntity<ReviewDto> createPremiumReview(@RequestBody CreatePremiumReviewDto createReviewDto, @PathVariable String titleId) {
-        Review newReview = mapperUtil.getMapper().map(createReviewDto, PremiumReview.class);
-
-        return ResponseEntity.ok().body(reviewService.create(newReview, titleId));
+    @PostMapping(value = "/reviews/{titleId}")
+    public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
+        return ResponseEntity.ok().body(reviewService.create(createReviewDto, titleId));
     }
 }
