@@ -21,16 +21,16 @@ public class PlatformController {
 
     @PostMapping(value = "/authentication")
     public ResponseEntity<JwtResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
-            return ResponseEntity.ok(platformsService.login(authRequestDto));
+            return ResponseEntity.ok().body(platformsService.login(authRequestDto));
     }
 
     @PostMapping(value = "/registration")
     public ResponseEntity<RegistrationResponseDto> register(@RequestBody AuthRequestDto authRequestDto) {
-        return ResponseEntity.ok(platformsService.register(authRequestDto));
+        return ResponseEntity.ok().body(platformsService.register(authRequestDto));
     }
 
     @GetMapping(value = "/platforms/{name}")
     public ResponseEntity<PlatformDetailsDto> getPlatformDetails(@PathVariable String name) {
-        return ResponseEntity.ok(platformsService.getPlatformDetails(name));
+        return ResponseEntity.ok().body(platformsService.getPlatformDetails(name));
     }
 }
