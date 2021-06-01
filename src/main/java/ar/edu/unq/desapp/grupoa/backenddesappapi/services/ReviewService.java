@@ -60,8 +60,8 @@ public class ReviewService {
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
     }
 
-    public List<ReviewDto> getByCriteria(String titleId, String platform, Boolean spoiler, String type, Pageable pagingSort) {
-        Specification<Review> specs = reviewSpecs.buildCriteriaSpecs(titleId, platform, spoiler, type);
+    public List<ReviewDto> getByCriteria(String titleId, String platform, Boolean spoiler, String type, String language, String localization, Pageable pagingSort) {
+        Specification<Review> specs = reviewSpecs.buildCriteriaSpecs(titleId, platform, spoiler, type, language, localization);
         Page<Review> reviews = reviewRepository.findAll(specs, pagingSort);
 
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));

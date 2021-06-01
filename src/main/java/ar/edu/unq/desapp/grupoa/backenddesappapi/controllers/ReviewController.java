@@ -45,13 +45,15 @@ public class ReviewController {
             @RequestParam(required = false) String platform,
             @RequestParam(required = false) Boolean spoiler,
             @RequestParam(required = false) String type,
+            @RequestParam(required = false) String language,
+            @RequestParam(required = false) String localization,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "2") int size,
             @RequestParam(defaultValue = "createdOn,desc") String[] sort)
     {
         Pageable pagingSort = PageRequest.of(page, size, Sort.by(sortHelper.getSort(sort)));
 
-        return ResponseEntity.ok().body(reviewService.getByCriteria(titleId, platform, spoiler, type, pagingSort));
+        return ResponseEntity.ok().body(reviewService.getByCriteria(titleId, platform, spoiler, type, language, localization, pagingSort));
     }
 
     @PostMapping(value = "/reviews/{titleId}")

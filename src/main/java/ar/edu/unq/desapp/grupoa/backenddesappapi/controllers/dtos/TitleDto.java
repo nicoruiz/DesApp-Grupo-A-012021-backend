@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -8,16 +8,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReviewSpecs {
 
-    public Specification<Review> buildCriteriaSpecs(String titleId, String platform, Boolean spoiler, String type) {
+    public Specification<Review> buildCriteriaSpecs(String titleId, String platform, Boolean spoiler, String type, String language, String localization) {
         return Specification
                 .where(withTitleId(titleId))
                 .and(withPlatformName(platform))
                 .and(withSpoiler(spoiler))
-                .and(withType(type));
+                .and(withType(type))
+                .and(withLanguage(language))
+                .and(withLocalization(localization));
     }
 
     private Specification<Review> withTitleId(String titleId) {
-        return (root, query, cb) -> titleId == null ? null :
+        return (root, query, cb) ->
                 cb.equal(root.get("title").get("id"), titleId);
     }
 
@@ -41,5 +43,15 @@ public class ReviewSpecs {
             }
         }
         return (root, query, cb) -> null;
+    }
+
+    private Specification<Review> withLanguage(String language) {
+        return (root, query, cb) -> language == null ? null :
+                cb.equal(root.get("language"), language);
+    }
+
+    private Specification<Review> withLocalization(String localization) {
+        return (root, query, cb) -> localization == null ? null :
+                cb.equal(root.get("localization"), localization);
     }
 }
