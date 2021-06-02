@@ -39,10 +39,10 @@ public class ReviewService {
 
     public ReviewDto create(CreateReviewDto createReviewDto, String titleId) {
         Title title = titleRepository.findById(titleId)
-                .orElseThrow(() -> new EntityNotFoundException(Title.class.getSimpleName(), titleId));
+                .orElseThrow(() -> new EntityNotFoundException("Title", titleId));
 
         Platform platform = platformRepository.findById(createReviewDto.getPlatformId())
-                .orElseThrow(() -> new EntityNotFoundException(Platform.class.getSimpleName(), createReviewDto.getPlatformId()));
+                .orElseThrow(() -> new EntityNotFoundException("Platform", createReviewDto.getPlatformId()));
 
         Review newReview = mapperUtil.getMapper().map(createReviewDto, Review.class);
         newReview.setTitle(title);

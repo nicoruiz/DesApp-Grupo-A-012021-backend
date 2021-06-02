@@ -29,7 +29,7 @@ public class TitleService {
 
     public TitleDto getById(String id) {
         Title title = this.titleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Title.class.getSimpleName(), id));
+                .orElseThrow(() -> new EntityNotFoundException("Title", id));
 
         return mapperUtil.getMapper().map(title, TitleDto.class);
     }
