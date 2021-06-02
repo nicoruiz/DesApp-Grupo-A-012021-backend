@@ -2,13 +2,14 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.PlatformRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecs;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class ReviewService {
     @Autowired
     private MapperUtil mapperUtil;
     @Autowired
-    private ReviewSpecs reviewSpecs;
+    private ReviewSpecsBuilder reviewSpecsBuilder;
 
     public ReviewDto create(CreateReviewDto createReviewDto, String titleId) {
         Title title = titleRepository.findById(titleId)
@@ -60,8 +57,8 @@ public class ReviewService {
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
     }
 
-    public List<ReviewDto> getByCriteria(String titleId, String platform, Boolean spoiler, String type, String language, String localization, Pageable pagingSort) {
-        Specification<Review> specs = reviewSpecs.buildCriteriaSpecs(titleId, platform, spoiler, type, language, localization);
+    public List<ReviewDto> getByCriteria(SearchReviewParamsDto params, Pageable pagingSort) {
+        Specification<Review> specs = reviewSpecsBuilder.buildCriteriaSpecs(params);
         Page<Review> reviews = reviewRepository.findAll(specs, pagingSort);
 
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));

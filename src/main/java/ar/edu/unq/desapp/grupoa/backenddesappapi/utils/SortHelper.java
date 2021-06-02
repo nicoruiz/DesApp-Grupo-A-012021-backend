@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.utils;
 
+import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Component;
@@ -9,10 +10,6 @@ import java.util.List;
 
 @Component
 public class SortHelper {
-    private static final String CREATED_ON = "createdOn";
-    private static final String RATING = "rating";
-    private static final String ASC = "asc";
-    private static final String DESC = "desc";
 
     public List<Order> getSort(String[] sort) {
         List<Order> orders = new ArrayList<Order>();
@@ -34,7 +31,7 @@ public class SortHelper {
         }
         // If any given sort property was valid, set default one
         if(orders.isEmpty()) {
-            orders.add(new Order(Sort.Direction.fromString(DESC), CREATED_ON));
+            orders.add(new Order(Sort.Direction.fromString(SortConfig.DESC), SortConfig.CREATED_ON));
         }
 
         return orders;
@@ -42,10 +39,10 @@ public class SortHelper {
 
     private boolean isValidSort(String[] sort) {
         boolean isValidProperty = !sort[0].isEmpty() &&
-                (sort[0].equals(CREATED_ON) || sort[0].equals(RATING));
+                (sort[0].equals(SortConfig.CREATED_ON) || sort[0].equals(SortConfig.RATING));
 
         boolean isValidDirection = !sort[1].isEmpty() &&
-                (sort[1].equals(ASC) || sort[1].equals(DESC));
+                (sort[1].equals(SortConfig.ASC) || sort[1].equals(SortConfig.DESC));
 
         return isValidProperty && isValidDirection;
     }

@@ -34,10 +34,10 @@ public class ApiKeyValidatorAspect {
 
     @Before("methodsStarterServicePointcut()")
     public void beforeMethods() throws Throwable {
-        logger.info("/////// BEFORE: VALIDATING API KEY /////");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String path = request.getRequestURI();
         if(excludedUrls.stream().noneMatch(x -> path.contains(x))) {
+            logger.info("/////// BEFORE: VALIDATING API KEY /////");
             String apiKey = request.getHeader("API-KEY");
             validateApiKey(apiKey);
         }
@@ -47,6 +47,6 @@ public class ApiKeyValidatorAspect {
         Platform platform = platformRepository.findByApiKey(apiKey);
         if(platform == null)
             throw new InvalidApiKeyException();
-        logger.info("/////// API KEY VALIDATED: "+ apiKey +" /////");
+        logger.info("/////// SUCCESS: API KEY VALIDATED "+ apiKey +" /////");
     }
 }

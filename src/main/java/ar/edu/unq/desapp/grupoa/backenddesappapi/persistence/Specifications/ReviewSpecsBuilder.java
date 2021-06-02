@@ -1,21 +1,23 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications;
 
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.ReviewType;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReviewSpecs {
+public class ReviewSpecsBuilder implements SpecBuilder<Review, SearchReviewParamsDto> {
 
-    public Specification<Review> buildCriteriaSpecs(String titleId, String platform, Boolean spoiler, String type, String language, String localization) {
+    @Override
+    public Specification<Review> buildCriteriaSpecs(SearchReviewParamsDto params) {
         return Specification
-                .where(withTitleId(titleId))
-                .and(withPlatformName(platform))
-                .and(withSpoiler(spoiler))
-                .and(withType(type))
-                .and(withLanguage(language))
-                .and(withLocalization(localization));
+                .where(withTitleId(params.getTitleId()))
+                .and(withPlatformName(params.getPlatform()))
+                .and(withSpoiler(params.getSpoiler()))
+                .and(withType(params.getType()))
+                .and(withLanguage(params.getLanguage()))
+                .and(withLocalization(params.getLocalization()));
     }
 
     private Specification<Review> withTitleId(String titleId) {
