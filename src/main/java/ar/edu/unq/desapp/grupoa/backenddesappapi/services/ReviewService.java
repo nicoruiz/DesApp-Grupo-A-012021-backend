@@ -18,16 +18,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 
 @Transactional
 @Service
 public class ReviewService {
+
     @Autowired
     private ReviewRepository reviewRepository;
     @Autowired
@@ -65,5 +62,17 @@ public class ReviewService {
         Page<Review> reviews = reviewRepository.findAll(specs, pagingSort);
 
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
+    }
+
+    public ReviewDto like(long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
+        review.like();
+        return mapperUtil.getMapper().map(review, ReviewDto.class);
+    }
+
+    public ReviewDto dislike(long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
+        review.dislike();
+        return mapperUtil.getMapper().map(review, ReviewDto.class);
     }
 }
