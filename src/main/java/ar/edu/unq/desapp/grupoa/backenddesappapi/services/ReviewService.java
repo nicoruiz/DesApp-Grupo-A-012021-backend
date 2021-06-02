@@ -25,6 +25,7 @@ import java.util.List;
 @Transactional
 @Service
 public class ReviewService {
+
     @Autowired
     private ReviewRepository reviewRepository;
     @Autowired
@@ -62,5 +63,17 @@ public class ReviewService {
         Page<Review> reviews = reviewRepository.findAll(specs, pagingSort);
 
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
+    }
+
+    public ReviewDto like(long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
+        review.like();
+        return mapperUtil.getMapper().map(review, ReviewDto.class);
+    }
+
+    public ReviewDto dislike(long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
+        review.dislike();
+        return mapperUtil.getMapper().map(review, ReviewDto.class);
     }
 }

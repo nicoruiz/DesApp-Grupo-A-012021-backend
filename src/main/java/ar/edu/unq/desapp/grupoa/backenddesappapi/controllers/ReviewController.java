@@ -61,4 +61,14 @@ public class ReviewController {
     public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
         return ResponseEntity.ok().body(reviewService.create(createReviewDto, titleId));
     }
+    
+    @PostMapping(value = "/reviews/{reviewId}/like")
+    public ResponseEntity<ReviewDto> like(@PathVariable long reviewId) {
+        return ResponseEntity.ok().body(reviewService.like(reviewId));
+    }
+    
+    @PostMapping(value = "/reviews/{reviewId}/dislike")
+    public ResponseEntity<ReviewDto> dislike(@PathVariable long reviewId) {
+        return ResponseEntity.ok().body(reviewService.dislike(reviewId));
+    }
 }
