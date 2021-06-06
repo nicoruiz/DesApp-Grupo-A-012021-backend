@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS review (
     `resume` VARCHAR(255) DEFAULT NULL,
     `body` VARCHAR(255) DEFAULT NULL,
     `review_type` VARCHAR(20) NOT NULL,
-    `rating` INT NOT NULL,
+    `rating` DECIMAL(10,1) NOT NULL,
     `created_on` date DEFAULT NULL,
     `platform_id` INT NOT NULL,
     `platform_user_id` INT NOT NULL,
@@ -60,5 +60,8 @@ CREATE TABLE IF NOT EXISTS platform (
     `username` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `api_key` VARCHAR(255) NOT NULL,
+    `credits` DECIMAL(10,2) NOT NULL,
+    `requests_number` INT NOT NULL,
+    `price_per_request` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (`id`)
 );

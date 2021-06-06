@@ -8,6 +8,9 @@ import java.io.Serializable;
 public class PlatformDetailsDto implements Serializable {
     private String platform;
     private String apiKey;
+    private double credits;
+    private int requestsNumber;
+    private double pricePerRequest;
 
     public PlatformDetailsDto() {}
 }

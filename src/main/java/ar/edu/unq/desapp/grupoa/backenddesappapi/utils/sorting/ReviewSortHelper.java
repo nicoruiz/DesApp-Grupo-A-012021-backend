@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.utils;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.utils.sorting;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
 import org.springframework.data.domain.Sort;
@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SortHelper {
+public class ReviewSortHelper implements SortHelper {
 
+    @Override
     public List<Order> getSort(String[] sort) {
-        List<Order> orders = new ArrayList<Order>();
+        List<Order> orders = new ArrayList<>();
 
         if (sort[0].contains(",")) {
             // will sort more than 2 fields
@@ -31,15 +32,16 @@ public class SortHelper {
         }
         // If any given sort property was valid, set default one
         if(orders.isEmpty()) {
-            orders.add(new Order(Sort.Direction.fromString(SortConfig.DESC), SortConfig.CREATED_ON));
+            orders.add(new Order(Sort.Direction.fromString(SortConfig.DESC), SortConfig.REVIEW_CREATED_ON));
         }
 
         return orders;
     }
 
-    private boolean isValidSort(String[] sort) {
+    @Override
+    public boolean isValidSort(String[] sort) {
         boolean isValidProperty = !sort[0].isEmpty() &&
-                (sort[0].equals(SortConfig.CREATED_ON) || sort[0].equals(SortConfig.RATING));
+                (sort[0].equals(SortConfig.REVIEW_CREATED_ON) || sort[0].equals(SortConfig.REVIEW_RATING));
 
         boolean isValidDirection = !sort[1].isEmpty() &&
                 (sort[1].equals(SortConfig.ASC) || sort[1].equals(SortConfig.DESC));

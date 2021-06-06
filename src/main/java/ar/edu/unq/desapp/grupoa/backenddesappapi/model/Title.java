@@ -68,7 +68,7 @@ public class Title implements Serializable {
     public double getAverageRating() {
         OptionalDouble avgRating = reviews
                 .stream()
-                .mapToInt(Review::getRating)
+                .mapToDouble(Review::getRating)
                 .average();
 
         return avgRating.isPresent() ?

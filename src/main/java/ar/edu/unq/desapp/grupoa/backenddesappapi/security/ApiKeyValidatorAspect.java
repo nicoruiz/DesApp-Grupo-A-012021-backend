@@ -48,5 +48,11 @@ public class ApiKeyValidatorAspect {
         if(platform == null)
             throw new InvalidApiKeyException();
         logger.info("/////// SUCCESS: API KEY VALIDATED "+ apiKey +" /////");
+        processRequest(platform);
+    }
+
+    private void processRequest(Platform platform) {
+        platform.processRequest();
+        platformRepository.save(platform);
     }
 }

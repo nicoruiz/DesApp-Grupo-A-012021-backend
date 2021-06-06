@@ -1,11 +1,16 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.SearchTitleParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.TitleDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.TitleSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +25,14 @@ public class TitleService {
     private TitleRepository titleRepository;
     @Autowired
     private MapperUtil mapperUtil;
+    @Autowired
+    private TitleSpecsBuilder titleSpecsBuilder;
 
-    public List<TitleDto> getAll() {
-        List<Title> titles = titleRepository.findAll();
+    public List<TitleDto> getByCriteria(SearchTitleParamsDto params, Pageable pagingSort) {
+        Specification<Title> specs = titleSpecsBuilder.buildCriteriaSpecs(params);
+        Page<Title> titles = titleRepository.findAll(specs, pagingSort);
 
-        return Arrays.asList(mapperUtil.getMapper().map(titles, TitleDto[].class));
+        return Arrays.asList(mapperUtil.getMapper().map(titles.toList(), TitleDto[].class));
     }
 
     public TitleDto getById(String id) {

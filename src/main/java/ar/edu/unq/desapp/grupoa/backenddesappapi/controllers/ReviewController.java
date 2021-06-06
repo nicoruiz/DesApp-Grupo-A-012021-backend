@@ -6,7 +6,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.Create
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.ReviewService;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.SortHelper;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.sorting.ReviewSortHelper;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -26,14 +26,14 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
     @Autowired
-    private SortHelper sortHelper;
+    private ReviewSortHelper sortHelper;
 
     @GetMapping("/reviews")
     public ResponseEntity<List<ReviewDto>> getReviews(
-            @RequestParam(defaultValue = PageConfig.NUMBER) int page,
-            @RequestParam(defaultValue = PageConfig.SIZE) int size,
-            @RequestParam(defaultValue = SortConfig.DEFAULT) String[] sort)
-    {
+            @RequestParam(defaultValue = PageConfig.PAGE) int page,
+            @RequestParam(defaultValue = PageConfig.REVIEW_PAGE_SIZE) int size,
+            @RequestParam(defaultValue = SortConfig.REVIEW_DEFAULT) String[] sort
+    ) {
         Pageable pagingSort = PageRequest.of(page, size, Sort.by(sortHelper.getSort(sort)));
 
         return ResponseEntity.ok().body(reviewService.getAll(pagingSort));
@@ -47,10 +47,10 @@ public class ReviewController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String language,
             @RequestParam(required = false) String localization,
-            @RequestParam(defaultValue = PageConfig.NUMBER) int page,
-            @RequestParam(defaultValue = PageConfig.SIZE) int size,
-            @RequestParam(defaultValue = SortConfig.DEFAULT) String[] sort)
-    {
+            @RequestParam(defaultValue = PageConfig.PAGE) int page,
+            @RequestParam(defaultValue = PageConfig.REVIEW_PAGE_SIZE) int size,
+            @RequestParam(defaultValue = SortConfig.REVIEW_DEFAULT) String[] sort
+    ) {
         SearchReviewParamsDto params = new SearchReviewParamsDto(titleId, platform, spoiler, type, language, localization);
         Pageable pagingSort = PageRequest.of(page, size, Sort.by(sortHelper.getSort(sort)));
 

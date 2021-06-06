@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.utils;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.PlatformDetailsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.RegistrationResponseDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.TitleDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import org.modelmapper.ModelMapper;

@@ -10,7 +10,7 @@ public class ReviewDto implements Serializable {
     private String resume;
     private String body;
     private String reviewType;
-    private int rating;
+    private double rating;
     private Date createdOn;
     private String platformUsername;
     private int platformUserId;

@@ -17,7 +17,7 @@ public class Review {
     private String body;
     @Enumerated(EnumType.STRING)
     private ReviewType reviewType;
-    private int rating;
+    private double rating;
     @Temporal(TemporalType.DATE)
     private Date createdOn = new Date();
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,7 +37,7 @@ public class Review {
 
     public Review() {}
 
-    public Review(long id, String resume, String body, ReviewType reviewType, int rating, Date createdOn, Platform platform, int platformUserId, String language, Title title, boolean hasSpoiler, String username, String localization) {
+    public Review(long id, String resume, String body, ReviewType reviewType, double rating, Date createdOn, Platform platform, int platformUserId, String language, Title title, boolean hasSpoiler, String username, String localization) {
         this.id = id;
         this.resume = resume;
         this.body = body;

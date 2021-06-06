@@ -17,6 +17,9 @@ public class Platform implements Serializable {
     @NotNull
     private String password;
     private String apiKey;
+    private double credits = 10000.00;
+    private int requestsNumber;
+    private double pricePerRequest = 1.25;
 
     public Platform(long id, String username, String password, String apiKey) {
         this.id = id;
@@ -26,4 +29,9 @@ public class Platform implements Serializable {
     }
 
     public Platform() {}
+
+    public void processRequest() {
+        this.requestsNumber++;
+        this.credits = this.credits - this.pricePerRequest;
+    }
 }
