@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS platform (
     `password` VARCHAR(255) NOT NULL,
     `api_key` VARCHAR(255) NOT NULL,
     `credits` DECIMAL(10,2) NOT NULL,
-    `requests_number` INT NOT NULL,
+    `processed_requests` INT NOT NULL,
     `price_per_request` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (`id`)
 );
