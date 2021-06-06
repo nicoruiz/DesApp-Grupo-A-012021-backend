@@ -5,6 +5,10 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.BadWordsReport;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.NoSenseReport;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.OffensiveReport;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.SpoilerReport;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.ReviewService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.sorting.ReviewSortHelper;
 import io.swagger.annotations.Api;
@@ -61,14 +65,34 @@ public class ReviewController {
     public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
         return ResponseEntity.ok().body(reviewService.create(createReviewDto, titleId));
     }
-    
+
     @PostMapping(value = "/reviews/{reviewId}/like")
     public ResponseEntity<ReviewDto> like(@PathVariable long reviewId) {
         return ResponseEntity.ok().body(reviewService.like(reviewId));
     }
-    
+
     @PostMapping(value = "/reviews/{reviewId}/dislike")
     public ResponseEntity<ReviewDto> dislike(@PathVariable long reviewId) {
         return ResponseEntity.ok().body(reviewService.dislike(reviewId));
+    }
+
+    @PostMapping(value = "/reviews/{reviewId}/spoiler")
+    public ResponseEntity<ReviewDto> reportSpoiler(@RequestBody SpoilerReport report, @PathVariable long reviewId) {
+        return ResponseEntity.ok().body(reviewService.report(reviewId, report));
+    }
+    
+    @PostMapping(value = "/reviews/{reviewId}/bad-words")
+    public ResponseEntity<ReviewDto> reportBadWords(@RequestBody BadWordsReport report, @PathVariable long reviewId) {
+        return ResponseEntity.ok().body(reviewService.report(reviewId, report));
+    }
+    
+    @PostMapping(value = "/reviews/{reviewId}/offensive")
+    public ResponseEntity<ReviewDto> reportOffensive(@RequestBody OffensiveReport report, @PathVariable long reviewId) {
+        return ResponseEntity.ok().body(reviewService.report(reviewId, report));
+    }
+    
+    @PostMapping(value = "/reviews/{reviewId}/no-sense")
+    public ResponseEntity<ReviewDto> reportNoSense(@RequestBody NoSenseReport report, @PathVariable long reviewId) {
+        return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
 }

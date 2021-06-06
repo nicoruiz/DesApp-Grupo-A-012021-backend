@@ -4,7 +4,6 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.ReviewType;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.TitleType;
 
 import java.util.Date;
 
