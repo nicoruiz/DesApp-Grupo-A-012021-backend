@@ -62,3 +62,11 @@ CREATE TABLE IF NOT EXISTS platform (
     `api_key` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS report (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `comment` VARCHAR(255) NOT NULL,
+    `review_id` INT NOT NULL,
+    FOREIGN KEY (`review_id`) REFERENCES review(`id`),
+    PRIMARY KEY (`id`)
+);

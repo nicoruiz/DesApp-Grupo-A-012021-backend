@@ -1,15 +1,19 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.ReviewType;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.Report;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
 public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,8 +38,13 @@ public class Review {
     private String localization;
     private int likes;
     private int dislikes;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id")
+    @JsonIgnoreProperties("review")
+    private List<Report> reports = new ArrayList<>();
 
-    public Review() {}
+    public Review() {
+    }
 
     public Review(long id, String resume, String body, ReviewType reviewType, int rating, Date createdOn, Platform platform, int platformUserId, String language, Title title, boolean hasSpoiler, String username, String localization) {
         this.id = id;
@@ -52,12 +61,16 @@ public class Review {
         this.username = username;
         this.localization = localization;
     }
-    
+
     public void like() {
         likes++;
     }
-    
+
     public void dislike() {
         dislikes++;
+    }
+
+    public void report(Report report) {
+        this.reports.add(report);
     }
 }

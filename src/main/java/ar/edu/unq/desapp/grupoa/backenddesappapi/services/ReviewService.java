@@ -7,6 +7,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.Report;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.PlatformRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecsBuilder;
@@ -74,6 +75,12 @@ public class ReviewService {
     public ReviewDto dislike(long reviewId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
         review.dislike();
+        return mapperUtil.getMapper().map(review, ReviewDto.class);
+    }
+
+    public ReviewDto report(long reviewId, Report report) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
+        review.report(report);
         return mapperUtil.getMapper().map(review, ReviewDto.class);
     }
 }
