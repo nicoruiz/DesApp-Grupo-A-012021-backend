@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.PageConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.CreateReportDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
@@ -10,6 +11,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.NoSenseReport;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.OffensiveReport;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.SpoilerReport;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.ReviewService;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.sorting.ReviewSortHelper;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class ReviewController {
     private ReviewService reviewService;
     @Autowired
     private ReviewSortHelper sortHelper;
+    @Autowired
+    private MapperUtil mapperUtil;
 
     @GetMapping("/reviews")
     public ResponseEntity<List<ReviewDto>> getReviews(
@@ -77,22 +81,26 @@ public class ReviewController {
     }
 
     @PostMapping(value = "/reviews/{reviewId}/spoiler")
-    public ResponseEntity<ReviewDto> reportSpoiler(@RequestBody SpoilerReport report, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportSpoiler(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+        SpoilerReport report = mapperUtil.getMapper().map(reportDto, SpoilerReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
     
     @PostMapping(value = "/reviews/{reviewId}/bad-words")
-    public ResponseEntity<ReviewDto> reportBadWords(@RequestBody BadWordsReport report, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportBadWords(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+        BadWordsReport report = mapperUtil.getMapper().map(reportDto, BadWordsReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
     
     @PostMapping(value = "/reviews/{reviewId}/offensive")
-    public ResponseEntity<ReviewDto> reportOffensive(@RequestBody OffensiveReport report, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportOffensive(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+        OffensiveReport report = mapperUtil.getMapper().map(reportDto, OffensiveReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
     
     @PostMapping(value = "/reviews/{reviewId}/no-sense")
-    public ResponseEntity<ReviewDto> reportNoSense(@RequestBody NoSenseReport report, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportNoSense(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+        NoSenseReport report = mapperUtil.getMapper().map(reportDto, NoSenseReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
 }
