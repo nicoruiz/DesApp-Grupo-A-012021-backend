@@ -34,14 +34,14 @@ public class TitleController {
     public ResponseEntity<List<TitleDto>> getTitles(
             @RequestParam(required = false) String titleName,
             @RequestParam(required = false) String genre,
-            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer decade,
             @RequestParam(required = false) Boolean topRated,
             @RequestParam(required = false) String personName,
             @RequestParam(defaultValue = PageConfig.PAGE) int page,
             @RequestParam(defaultValue = PageConfig.TITLE_PAGE_SIZE) int size,
             @RequestParam(defaultValue = SortConfig.TITLE_DEFAULT) String[] sort
     ) {
-        SearchTitleParamsDto params = new SearchTitleParamsDto(titleName, genre, year, topRated, personName);
+        SearchTitleParamsDto params = new SearchTitleParamsDto(titleName, genre, decade, topRated, personName);
         Pageable pagingSort = PageRequest.of(page, size, Sort.by(sortHelper.getSort(sort)));
 
         return ResponseEntity.ok().body(this.titleService.getByCriteria(params, pagingSort));
