@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.security;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.JwtUserDetailsService;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

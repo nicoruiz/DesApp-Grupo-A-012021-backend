@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.TitleDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.TitleService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
