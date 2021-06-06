@@ -18,20 +18,23 @@ public class Platform implements Serializable {
     private String password;
     private String apiKey;
     private double credits = 10000.00;
-    private int requestsNumber;
+    private int processedRequests;
     private double pricePerRequest = 1.25;
 
-    public Platform(long id, String username, String password, String apiKey) {
+    public Platform(long id, String username, String password, String apiKey, double credits, int processedRequests, double pricePerRequest) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.apiKey = apiKey;
+        this.credits = credits;
+        this.processedRequests = processedRequests;
+        this.pricePerRequest = pricePerRequest;
     }
 
     public Platform() {}
 
     public void processRequest() {
-        this.requestsNumber++;
-        this.credits = this.credits - this.pricePerRequest;
+        this.processedRequests++;
+        this.credits -= this.pricePerRequest;
     }
 }

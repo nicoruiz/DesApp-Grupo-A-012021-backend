@@ -30,7 +30,7 @@ public class ReviewSortHelper implements SortHelper {
                 orders.add(new Order(Sort.Direction.fromString(sort[1]), sort[0]));
             }
         }
-        // If any given sort property was valid, set default one
+        // If none given sort property was valid, set default one
         if(orders.isEmpty()) {
             orders.add(new Order(Sort.Direction.fromString(SortConfig.DESC), SortConfig.REVIEW_CREATED_ON));
         }

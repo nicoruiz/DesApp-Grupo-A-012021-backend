@@ -19,7 +19,7 @@ public class ReviewBuilder {
     private String resume = "a resume";
     private String body = "a body";
     private ReviewType reviewType = ReviewType.CRITIC;
-    private int rating = 5;
+    private double rating = 5.0;
     private Date createdOn = new Date();
     private Platform platform = PlatformBuilder.aPlatform().build();
     private int platformUserId = 1;
@@ -41,7 +41,7 @@ public class ReviewBuilder {
         reviewType = aType;
         return this;
     }
-    public ReviewBuilder withRating(int aRating){
+    public ReviewBuilder withRating(final double aRating){
         rating = aRating;
         return this;
     }

@@ -13,9 +13,12 @@ public class PlatformBuilder {
     private String username = "netflix";
     private String password = "password";
     private String apiKey = UUID.randomUUID().toString();
+    private double credits = 0;
+    private int processedRequests = 0;
+    private double pricePerRequest = 0;
 
     public Platform build() {
-        return new Platform(id, username, password, apiKey);
+        return new Platform(id, username, password, apiKey, credits, processedRequests, pricePerRequest);
     }
 
     public PlatformBuilder withId(final long anId) {
@@ -32,6 +35,18 @@ public class PlatformBuilder {
     }
     public PlatformBuilder withApiKey(final String anApiKey) {
         apiKey = anApiKey;
+        return this;
+    }
+    public PlatformBuilder withCredits(final double someCredits) {
+        credits = someCredits;
+        return this;
+    }
+    public PlatformBuilder withProcessedRequests(final int someRequests) {
+        processedRequests = someRequests;
+        return this;
+    }
+    public PlatformBuilder withPricePerRequest(final double somePricePerRequest) {
+        pricePerRequest = somePricePerRequest;
         return this;
     }
 }

@@ -28,7 +28,7 @@ public class TitleSortHelper implements SortHelper {
                 orders.add(new Sort.Order(Sort.Direction.fromString(sort[1]), sort[0]));
             }
         }
-        // If any given sort property was valid, set default one
+        // If none given sort property was valid, set default one
         if(orders.isEmpty()) {
             orders.add(new Sort.Order(Sort.Direction.fromString(SortConfig.DESC), SortConfig.TITLE_START_YEAR));
         }
