@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS resena;
-USE resena; 
+USE resena;
 
 CREATE TABLE IF NOT EXISTS title (
     `id` VARCHAR(9) PRIMARY KEY NOT NULL,
@@ -34,6 +34,17 @@ CREATE TABLE IF NOT EXISTS episode_detail (
     PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS platform (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `api_key` VARCHAR(255) NOT NULL,
+    `credits` DECIMAL(10,2) NOT NULL,
+    `processed_requests` INT NOT NULL,
+    `price_per_request` DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS review (
     `id` INT NOT NULL AUTO_INCREMENT,
     `resume` VARCHAR(255) DEFAULT NULL,
@@ -52,17 +63,6 @@ CREATE TABLE IF NOT EXISTS review (
     `dislikes` INT DEFAULT 0,
     FOREIGN KEY (`platform_id`) REFERENCES platform(`id`),
     FOREIGN KEY (`title_id`) REFERENCES title(`id`),
-    PRIMARY KEY (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS platform (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `api_key` VARCHAR(255) NOT NULL,
-    `credits` DECIMAL(10,2) NOT NULL,
-    `processed_requests` INT NOT NULL,
-    `price_per_request` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
