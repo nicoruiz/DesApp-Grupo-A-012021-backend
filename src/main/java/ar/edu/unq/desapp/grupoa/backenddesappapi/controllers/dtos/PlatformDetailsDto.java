@@ -9,7 +9,7 @@ public class PlatformDetailsDto implements Serializable {
     private String platform;
     private String apiKey;
     private double credits;
-    private int requestsNumber;
+    private int processedRequests;
     private double pricePerRequest;
 
     public PlatformDetailsDto() {}
