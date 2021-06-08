@@ -1,14 +1,16 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.persistence;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.PremiumReviewBuilder;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.ReviewBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.TitleBuilder;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.builder.UserReviewBuilder;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.PremiumReview;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.UserReview;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -23,15 +25,20 @@ public class ReviewRepositoryTests {
     @Test
     public void testSearchAllReviews_Get2Reviews() {
         ReviewRepository repositoryMock = mock(ReviewRepository.class);
+        Pageable pagingMock = mock(PageRequest.class);
+
         Title aTitle = TitleBuilder.aTitle().build();
-        UserReview anUserReview = UserReviewBuilder.anUserReview().build();
-        PremiumReview aPremiumReview = PremiumReviewBuilder.aPremiumReview().build();
+        Review aReview = ReviewBuilder.aReview().build();
+        Review aCriticReview = ReviewBuilder.aReview().build();
 
-        anUserReview.setTitle(aTitle);
-        aPremiumReview.setTitle(aTitle);
-        when(repositoryMock.findAll()).thenReturn(Arrays.asList(anUserReview, aPremiumReview));
+        aReview.setTitle(aTitle);
+        aCriticReview.setTitle(aTitle);
+        when(repositoryMock.findAll(pagingMock))
+                .thenReturn(new PageImpl<>(Arrays.asList(aReview, aCriticReview)));
 
-        assertThat(repositoryMock.findAll().size()).isEqualTo(2);
+        Page<Review> reviewPage = repositoryMock.findAll(pagingMock);
+
+        assertThat(reviewPage.toList().size()).isEqualTo(2);
     }
 
     @Test
@@ -43,16 +50,16 @@ public class ReviewRepositoryTests {
                         .build();
         Optional<Title> optionalTitle = Optional.of(aTitle);
 
-        UserReview anUserReview = UserReviewBuilder.anUserReview().build();
-        PremiumReview aPremiumReview = PremiumReviewBuilder.aPremiumReview().build();
-        List<Review> reviewsToAdd = Arrays.asList(anUserReview, aPremiumReview);
+        Review aReview = ReviewBuilder.aReview().build();
+        Review aCriticReview = ReviewBuilder.aReview().build();
+        List<Review> reviewsToAdd = Arrays.asList(aReview, aCriticReview);
         aTitle.setReviews(reviewsToAdd);
 
         when(repositoryMock.findById(titleId)).thenReturn(optionalTitle);
         List<Review> reviews = repositoryMock.findById(titleId).get().getReviews();
 
         assertThat(reviews.size()).isEqualTo(2);
-        assertThat(anUserReview).isIn(reviews);
-        assertThat(aPremiumReview).isIn(reviews);
+        assertThat(aReview).isIn(reviews);
+        assertThat(aCriticReview).isIn(reviews);
     }
 }

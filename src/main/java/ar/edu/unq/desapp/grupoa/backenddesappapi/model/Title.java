@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.model;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 import javax.persistence.*;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.TitleType;
@@ -48,5 +49,29 @@ public class Title implements Serializable {
         this.genres = genres;
         this.persons = persons;
         this.reviews = reviews;
+    }
+
+    public List<String> getPersonNames() {
+        return persons
+                .stream()
+                .map(Person::getPrimaryName)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getReviewResumes() {
+        return reviews
+                .stream()
+                .map(Review::getResume)
+                .collect(Collectors.toList());
+    }
+
+    public double getAverageRating() {
+        OptionalDouble avgRating = reviews
+                .stream()
+                .mapToDouble(Review::getRating)
+                .average();
+
+        return avgRating.isPresent() ?
+                avgRating.getAsDouble() : 0;
     }
 }

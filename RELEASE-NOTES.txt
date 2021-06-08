@@ -1,14 +1,19 @@
 ---------------------------------------------------------------------
-Release 1.0
+Release 2.0
 ---------------------------------------------------------------------
 NEW FEATURES:
-* Add a Review (User or Premium)
-* Value a Review (like or dislike)
-* Get Reviews (all of them or from a specific Title)
-* Get Titles or a specific one (by id)
+* Registración, autenticación y detalles de una Plataforma segurizado con JWT
+* API Endpoints segurizados con API-KEY (validación utilizando aspectos)
+* Aplicación frontend (Responsive, i18n, formatters de fechas, números, moneda)
+* Swagger
+* Buscar reseñas de un título (implementación completa con paginación y ordenamiento)
+* Reportar una reseña por diferentes motivos
+* Búsqueda inversa de un título (implementación completa con paginación y ordenamiento)
+* Utilización de DTO's y Automapping para el manejo de requests y evitar la exposición de entidades de dominio (ModelMapper)
+* Global exception handling para estandarizar la respuesta de errores de la API utilizando la clase ErrorResponse
 
 NOTES:
-* No endpoints declared to like or dislike a Review from our API
+* Los reportes y likes/dislikes a reseñas no tienen un tratamiento ni filtrado especial al momento buscarlas
 
 KNOWN ISSUES:
-* No exception handling from our API (errors are returned as 500 internal server error)
+* La base de datos MySql brindada por Heroku es bastante limitada con respecto a la cantidad de conexiones simultáneas

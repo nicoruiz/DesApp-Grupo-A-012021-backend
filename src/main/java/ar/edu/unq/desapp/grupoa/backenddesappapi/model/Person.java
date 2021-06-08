@@ -19,4 +19,12 @@ public class Person implements Serializable {
     @ManyToMany(mappedBy = "persons")
     @JsonIgnoreProperties("persons")
     private List<Title> titles;
+
+    public Person(String id, String primaryName, List<Title> titles) {
+        this.id = id;
+        this.primaryName = primaryName;
+        this.titles = titles;
+    }
+
+    public Person() {}
 }
