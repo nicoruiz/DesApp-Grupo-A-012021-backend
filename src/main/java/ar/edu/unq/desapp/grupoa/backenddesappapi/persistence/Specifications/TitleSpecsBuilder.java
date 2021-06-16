@@ -11,7 +11,6 @@ import java.util.Map;
 
 @Component
 public class TitleSpecsBuilder implements SpecBuilder<Title, SearchTitleParamsDto> {
-    private final double TOP_RATED_VALUE = 4.5;
     private final Map<Integer, Integer> DECADES_DICT = this.initDecadesDict();
 
     @Override
@@ -20,7 +19,7 @@ public class TitleSpecsBuilder implements SpecBuilder<Title, SearchTitleParamsDt
                 .where(withTitleName(params.getTitleName()))
                 .and(withGenre(params.getGenre()))
                 .and(withDecade(params.getDecade()))
-                .and(withTopRated(params.getTopRated()))
+                .and(withRating(params.getRating()))
                 .and(withPersonName(params.getPersonName()))
                 .and(distinct());
     }
@@ -44,11 +43,9 @@ public class TitleSpecsBuilder implements SpecBuilder<Title, SearchTitleParamsDt
                 cb.between(root.get("startYear"), decadeStart, endYear);
     }
 
-    private Specification<Title> withTopRated(Boolean topRated) {
-        return (root, query, cb) -> topRated == null ? null :
-                topRated ?
-                    cb.greaterThanOrEqualTo(root.join("reviews", JoinType.LEFT).get("rating"), TOP_RATED_VALUE) :
-                    cb.lessThan(root.join("reviews", JoinType.LEFT).get("rating"), TOP_RATED_VALUE);
+    private Specification<Title> withRating(Double rating) {
+        return (root, query, cb) -> rating == null ? null :
+                cb.ge(root.join("reviews", JoinType.LEFT).get("rating"), rating);
     }
 
     private Specification<Title> withPersonName(String personName) {

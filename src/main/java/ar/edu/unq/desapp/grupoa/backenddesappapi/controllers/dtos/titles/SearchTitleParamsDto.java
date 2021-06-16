@@ -7,14 +7,14 @@ public class SearchTitleParamsDto {
     private String titleName;
     private String genre;
     private Integer decade;
-    private Boolean topRated;
+    private Double rating;
     private String personName;
 
-    public SearchTitleParamsDto(String titleName, String genre, Integer decade, Boolean topRated, String personName) {
+    public SearchTitleParamsDto(String titleName, String genre, Integer decade, Double rating, String personName) {
         this.titleName = titleName;
         this.genre = genre;
         this.decade = decade;
-        this.topRated = topRated;
+        this.rating = rating;
         this.personName = personName;
     }
 }
