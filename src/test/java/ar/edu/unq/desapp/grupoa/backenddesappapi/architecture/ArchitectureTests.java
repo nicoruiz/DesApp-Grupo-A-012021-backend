@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 public class ArchitectureTests {
-    
+
     private JavaClasses classes;
-    
+
     @BeforeEach
     public void init() {
         ImportOption ignoreTests = (Location location) -> !location.contains("/test/");
@@ -33,7 +33,7 @@ public class ArchitectureTests {
                 .whereLayer("Controller").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller", "Security")
                 .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service", "Security");
-        
+
         arch.check(classes);
     }
 
@@ -41,6 +41,38 @@ public class ArchitectureTests {
     public void testModelHasEntityAnnotation_checkAllClasses() {
         ArchRule rule = classes().that().resideInAPackage("..model..").and().resideOutsideOfPackages("..enums..", "..exceptions..")
                 .should().beAnnotatedWith(Entity.class);
+
+        rule.check(classes);
+    }
+
+    @Test
+    public void testControllersNameEndingWithController_checkAllClasses() {
+        ArchRule rule = classes().that().resideInAPackage("..controllers..")
+                .should().haveSimpleNameEndingWith("Controller");
+
+        rule.check(classes);
+    }
+
+    @Test
+    public void testServicesNameEndingWithService_checkAllClasses() {
+        ArchRule rule = classes().that().resideInAPackage("..services..")
+                .should().haveSimpleNameEndingWith("Service");
+
+        rule.check(classes);
+    }
+
+    @Test
+    public void testPersistenceNameEndingWithRepository_checkAllClasses() {
+        ArchRule rule = classes().that().resideInAPackage("..persistence..").and().resideOutsideOfPackage("..specifications..")
+                .should().haveSimpleNameEndingWith("Repository");
+
+        rule.check(classes);
+    }
+
+    @Test
+    public void testDtoNameEndingWithDto_checkAllClasses() {
+        ArchRule rule = classes().that().resideInAPackage("..dtos..")
+                .should().haveSimpleNameEndingWith("Dto");
 
         rule.check(classes);
     }

@@ -10,7 +10,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFound
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.Report;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.PlatformRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecsBuilder;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.specifications.ReviewSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq.PublisherService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;

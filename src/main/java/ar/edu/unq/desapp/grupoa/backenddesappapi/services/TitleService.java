@@ -4,7 +4,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDt
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.TitleSpecsBuilder;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.specifications.TitleSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq.ConsumerService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
