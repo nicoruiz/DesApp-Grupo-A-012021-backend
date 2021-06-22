@@ -12,6 +12,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.PlatformRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq.PublisherService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class ReviewService {
     private MapperUtil mapperUtil;
     @Autowired
     private ReviewSpecsBuilder reviewSpecsBuilder;
+    @Autowired
+    private PublisherService publisherService;
 
     public ReviewDto create(CreateReviewDto createReviewDto, String titleId) {
         Title title = titleRepository.findById(titleId)
@@ -50,7 +54,10 @@ public class ReviewService {
         newReview.setPlatform(platform);
         reviewRepository.save(newReview);
 
-        return mapperUtil.getMapper().map(newReview, ReviewDto.class);
+        ReviewDto reviewDto = mapperUtil.getMapper().map(newReview, ReviewDto.class);
+        publisherService.publish(titleId, reviewDto); // Publish to rabbitmq queue
+
+        return reviewDto;
     }
 
     public List<ReviewDto> getAll(Pageable pagingSort) {
@@ -64,6 +71,10 @@ public class ReviewService {
         Page<Review> reviews = reviewRepository.findAll(specs, pagingSort);
 
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
+    }
+
+    public void publish(String titleId) {
+        publisherService.publish(titleId, new ReviewDto());
     }
 
     public ReviewDto like(long reviewId) {

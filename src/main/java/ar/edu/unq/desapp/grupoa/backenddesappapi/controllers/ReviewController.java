@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -66,13 +67,8 @@ public class ReviewController {
     }
 
     @PostMapping(value = "/reviews/{titleId}")
-    public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
+    public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) throws IOException {
         return ResponseEntity.ok().body(reviewService.create(createReviewDto, titleId));
-    }
-
-    @PostMapping(value = "/reviews/{reviewId}/like")
-    public ResponseEntity<ReviewDto> like(@PathVariable long reviewId) {
-        return ResponseEntity.ok().body(reviewService.like(reviewId));
     }
 
     @PostMapping(value = "/reviews/{reviewId}/dislike")

@@ -2,8 +2,11 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.utils;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.PlatformDetailsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.RegistrationResponseDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.TitleDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -37,6 +40,11 @@ public class MapperUtil {
             mapper.map(Title::getPersonNames, TitleDto::setPersons);
             mapper.map(Title::getReviewResumes, TitleDto::setReviewResumes);
             mapper.map(Title::getAverageRating, TitleDto::setAverageRating);
+        });
+
+        // Review config
+        this.modelMapper.typeMap(CreateReviewDto.class, Review.class).addMappings(mapper -> {
+           mapper.skip(Review::setId);
         });
     }
 }
