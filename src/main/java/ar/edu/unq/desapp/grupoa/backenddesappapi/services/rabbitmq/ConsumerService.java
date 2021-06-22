@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.RabbitConfig;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.RabbitQueueUseException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.EmailSenderService;
 import com.google.gson.Gson;

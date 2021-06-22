@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.ErrorResponse;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;

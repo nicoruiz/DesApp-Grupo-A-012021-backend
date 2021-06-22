@@ -1,8 +1,8 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.CreateReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
@@ -21,7 +21,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 

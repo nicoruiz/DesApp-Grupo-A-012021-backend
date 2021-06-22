@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.ReviewType;
 import lombok.Data;

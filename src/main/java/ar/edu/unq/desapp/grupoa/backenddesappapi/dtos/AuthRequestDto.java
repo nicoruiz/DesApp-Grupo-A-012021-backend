@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.dtos;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.InvalidCredentialsException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.StringHelper;

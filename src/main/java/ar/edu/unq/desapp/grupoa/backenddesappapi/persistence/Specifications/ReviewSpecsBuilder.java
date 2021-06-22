@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.enums.ReviewType;
 import org.springframework.data.jpa.domain.Specification;

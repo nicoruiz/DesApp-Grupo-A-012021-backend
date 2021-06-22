@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.SearchTitleParamsDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.TitleSpecsBuilder;

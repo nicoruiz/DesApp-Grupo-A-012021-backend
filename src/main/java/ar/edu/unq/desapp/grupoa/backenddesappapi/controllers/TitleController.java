@@ -2,9 +2,8 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.PageConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.SearchTitleParamsDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.TitleService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.sorting.TitleSortHelper;
 import io.swagger.annotations.Api;

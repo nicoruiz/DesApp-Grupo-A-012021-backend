@@ -2,10 +2,10 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.PageConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.CreateReportDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.CreateReportDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.CreateReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.BadWordsReport;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.NoSenseReport;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.OffensiveReport;
@@ -22,7 +22,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController

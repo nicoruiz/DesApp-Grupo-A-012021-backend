@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.dtos;
 
 import lombok.Data;
 
