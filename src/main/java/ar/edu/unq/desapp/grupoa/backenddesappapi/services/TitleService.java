@@ -45,7 +45,7 @@ public class TitleService {
         return mapperUtil.getMapper().map(title, TitleDto.class);
     }
 
-    public void subscribeToTitleNews(String id, String email) throws Exception {
+    public void subscribeToTitleNews(String id, String email) {
         Title title = this.titleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Title", id));
 

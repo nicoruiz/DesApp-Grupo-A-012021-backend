@@ -67,7 +67,7 @@ public class ReviewController {
     }
 
     @PostMapping(value = "/reviews/{titleId}")
-    public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) throws IOException {
+    public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
         return ResponseEntity.ok().body(reviewService.create(createReviewDto, titleId));
     }
 
