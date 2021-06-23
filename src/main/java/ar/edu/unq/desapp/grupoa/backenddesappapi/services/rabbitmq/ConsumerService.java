@@ -2,10 +2,11 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.RabbitConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.RabbitQueueUseException;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.RabbitChannelUseException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.EmailSenderService;
 import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.DeliverCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,11 +22,12 @@ public class ConsumerService {
     private EmailSenderService emailSenderService;
 
     public void subscribe(String exchangeName, String email) {
-        Channel channel = rabbitConfig.getChannel();
         try {
+            Connection connection = rabbitConfig.getConnectionInstance();
+            Channel channel = connection.createChannel();
             channel.exchangeDeclare(exchangeName, "fanout");
-            String queueName = channel.queueDeclare().getQueue();
 
+            String queueName = channel.queueDeclare().getQueue();
             channel.queueBind(queueName, exchangeName, "");
 
             System.out.println(" [x] Waiting for messages. " + email + " subscribed for title's news.");
@@ -39,7 +41,7 @@ public class ConsumerService {
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
         }
         catch (IOException ex) {
-            throw new RabbitQueueUseException(exchangeName);
+            throw new RabbitChannelUseException();
         }
     }
 

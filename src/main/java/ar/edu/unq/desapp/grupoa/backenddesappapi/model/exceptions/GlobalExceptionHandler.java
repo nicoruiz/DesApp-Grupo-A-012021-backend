@@ -78,6 +78,28 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+    @ExceptionHandler(RabbitConnectionException.class)
+    @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
+    public ResponseEntity<ErrorResponseDto> handleRabbitConnectionException(
+            RabbitConnectionException exception
+    ) {
+        return buildErrorResponse(
+                HttpStatus.FAILED_DEPENDENCY,
+                exception
+        );
+    }
+
+    @ExceptionHandler(RabbitChannelUseException.class)
+    @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
+    public ResponseEntity<ErrorResponseDto> handleRabbitChannelUseException(
+            RabbitChannelUseException exception
+    ) {
+        return buildErrorResponse(
+                HttpStatus.FAILED_DEPENDENCY,
+                exception
+        );
+    }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorResponseDto> handleAllUncaughtException(
