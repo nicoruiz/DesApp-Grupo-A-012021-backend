@@ -27,15 +27,12 @@ public class ConsumerService {
             Channel channel = connection.createChannel();
             channel.exchangeDeclare(exchangeName, "fanout");
 
-            String queueName = channel.queueDeclare().getQueue();
+            String queueName = channel.queueDeclare(email, true, false, false, null).getQueue();
             channel.queueBind(queueName, exchangeName, "");
-
-            System.out.println(" [x] Waiting for messages. " + email + " subscribed for title's news.");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String jsonReviewDto = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 ReviewDto review = new Gson().fromJson(jsonReviewDto, ReviewDto.class);
-                System.out.println(" [x] Review updates " + review.getId() + " sending to: " + email);
                 this.sendEmail(review, email);
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });

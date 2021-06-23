@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeoutException;
 
 @Component
 public class PublisherService {
@@ -26,7 +25,6 @@ public class PublisherService {
 
             String jsonReviewDto = new Gson().toJson(reviewDto, ReviewDto.class);
             channel.basicPublish(exchangeName, "", null, jsonReviewDto.getBytes(StandardCharsets.UTF_8));
-            System.out.println(" [x] Sent review '" + reviewDto.getId() + "'");
             rabbitConfig.closeChannel(channel);
         }
         catch (IOException ex) {
