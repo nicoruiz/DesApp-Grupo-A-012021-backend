@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.SearchTitleParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;

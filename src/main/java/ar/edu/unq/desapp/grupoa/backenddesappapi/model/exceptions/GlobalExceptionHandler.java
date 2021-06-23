@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.ErrorResponse;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,7 +14,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ErrorResponse> handleEntityNotFoundException(
+    public ResponseEntity<ErrorResponseDto> handleEntityNotFoundException(
             EntityNotFoundException exception
     ) {
         return buildErrorResponse(
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UsernameAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<ErrorResponse> handleUsernameAlreadyExistsException(
+    public ResponseEntity<ErrorResponseDto> handleUsernameAlreadyExistsException(
             UsernameAlreadyExistsException exception
     ) {
         return buildErrorResponse(
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ErrorResponse> handleBadCredentialsException (
+    public ResponseEntity<ErrorResponseDto> handleBadCredentialsException (
             BadCredentialsException exception
     ) {
         return buildErrorResponse(
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NonExistentPlatformException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorResponse> handleNonExistentPlatformException(
+    public ResponseEntity<ErrorResponseDto> handleNonExistentPlatformException(
             NonExistentPlatformException exception
     ) {
         return buildErrorResponse(
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidApiKeyException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<ErrorResponse> handleInvalidApiKeyException(
+    public ResponseEntity<ErrorResponseDto> handleInvalidApiKeyException(
             InvalidApiKeyException exception
     ) {
         return buildErrorResponse(
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidCredentialsException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ErrorResponse> handleInvalidCredentialsException(
+    public ResponseEntity<ErrorResponseDto> handleInvalidCredentialsException(
             InvalidCredentialsException exception
     ) {
         return buildErrorResponse(
@@ -80,7 +80,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<ErrorResponse> handleAllUncaughtException(
+    public ResponseEntity<ErrorResponseDto> handleAllUncaughtException(
             RuntimeException exception
     ){
         return buildErrorResponse(
@@ -89,11 +89,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    private ResponseEntity<ErrorResponse> buildErrorResponse(
+    private ResponseEntity<ErrorResponseDto> buildErrorResponse(
             HttpStatus httpStatus,
             Exception exception
     ) {
-        ErrorResponse errorResponse = new ErrorResponse(
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
                 httpStatus.value(),
                 exception.getMessage()
         );

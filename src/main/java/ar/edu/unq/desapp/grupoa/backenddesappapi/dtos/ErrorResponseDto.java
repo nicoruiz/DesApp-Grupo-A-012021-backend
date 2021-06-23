@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.dtos;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @RequiredArgsConstructor
-public class ErrorResponse implements Serializable {
+public class ErrorResponseDto implements Serializable {
     private final int status;
     private final String message;
 }

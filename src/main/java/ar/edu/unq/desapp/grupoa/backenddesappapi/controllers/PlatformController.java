@@ -1,9 +1,9 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.AuthRequestDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.JwtResponseDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.PlatformDetailsDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.RegistrationResponseDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.AuthRequestDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.JwtResponseDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.PlatformDetailsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.RegistrationResponseDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.PlatformsService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

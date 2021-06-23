@@ -1,8 +1,8 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.CreateReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
@@ -10,7 +10,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFound
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.Report;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.PlatformRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecsBuilder;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.specifications.ReviewSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq.PublisherService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
@@ -21,7 +21,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 

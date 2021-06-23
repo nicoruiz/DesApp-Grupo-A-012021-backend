@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews;
 
 import lombok.Data;
 import java.io.Serializable;
