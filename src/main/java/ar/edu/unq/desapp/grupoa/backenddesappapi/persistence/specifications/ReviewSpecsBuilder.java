@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications;
+package ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.specifications;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
