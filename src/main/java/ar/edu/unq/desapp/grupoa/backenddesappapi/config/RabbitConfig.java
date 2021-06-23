@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class RabbitConfig {
-    @Value("${rabbitmq.host}")
-    private String host;
+    @Value("${rabbitmq.uri}")
+    private String uri;
 
     public Channel getChannel() {
         try {
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost(host);
+            factory.setUri(uri);
             Connection connection = factory.newConnection();
 
             return connection.createChannel();
