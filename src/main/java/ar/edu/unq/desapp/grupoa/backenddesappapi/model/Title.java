@@ -36,6 +36,10 @@ public class Title implements Serializable {
     @JoinColumn(name = "title_id")
     @JsonIgnoreProperties("title")
     private List<Review> reviews;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "title_id")
+    @JsonIgnoreProperties("title")
+    private List<Subscription> subscriptions;
 
     public Title() {}
 

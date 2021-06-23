@@ -17,14 +17,14 @@ public class PublisherService {
     @Autowired
     private RabbitConfig rabbitConfig;
 
-    public void publish(String exchangeName, ReviewDto reviewDto) {
+    public void publish(ReviewDto reviewDto) {
         try {
             Connection connection = rabbitConfig.getConnectionInstance();
             Channel channel = connection.createChannel();
-            channel.exchangeDeclare(exchangeName, "fanout");
+            channel.exchangeDeclare(rabbitConfig.EXCHANGE_NAME, "fanout");
 
             String jsonReviewDto = new Gson().toJson(reviewDto, ReviewDto.class);
-            channel.basicPublish(exchangeName, "", null, jsonReviewDto.getBytes(StandardCharsets.UTF_8));
+            channel.basicPublish(rabbitConfig.EXCHANGE_NAME, "", null, jsonReviewDto.getBytes(StandardCharsets.UTF_8));
             rabbitConfig.closeChannel(channel);
         }
         catch (IOException ex) {

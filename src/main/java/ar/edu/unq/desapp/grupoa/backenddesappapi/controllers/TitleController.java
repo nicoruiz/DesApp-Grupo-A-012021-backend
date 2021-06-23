@@ -50,8 +50,8 @@ public class TitleController {
     }
 
     @PostMapping(value = "/titles/{id}/subscription")
-    public ResponseEntity<?> subscribeToTitleReviews(@PathVariable String id, @RequestBody String email) {
+    public ResponseEntity<String> subscribeToTitleReviews(@PathVariable String id, @RequestBody String email) {
         titleService.subscribeToTitleNews(id, email);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Subscribed!");
     }
 }

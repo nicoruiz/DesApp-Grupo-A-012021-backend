@@ -54,7 +54,7 @@ public class ReviewService {
         reviewRepository.save(newReview);
 
         ReviewDto reviewDto = mapperUtil.getMapper().map(newReview, ReviewDto.class);
-        publisherService.publish(titleId, reviewDto); // Publish to rabbitmq queue
+        publisherService.publish(reviewDto); // Publish to rabbitmq queue
 
         return reviewDto;
     }
@@ -70,10 +70,6 @@ public class ReviewService {
         Page<Review> reviews = reviewRepository.findAll(specs, pagingSort);
 
         return Arrays.asList(mapperUtil.getMapper().map(reviews.toList(), ReviewDto[].class));
-    }
-
-    public void publish(String titleId) {
-        publisherService.publish(titleId, new ReviewDto());
     }
 
     public ReviewDto like(long reviewId) {

@@ -2,8 +2,10 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Subscription;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.SubscriptionRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.specifications.TitleSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq.ConsumerService;
@@ -24,6 +26,8 @@ public class TitleService {
 
     @Autowired
     private TitleRepository titleRepository;
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
     @Autowired
     private MapperUtil mapperUtil;
     @Autowired
@@ -49,6 +53,8 @@ public class TitleService {
         Title title = this.titleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Title", id));
 
-        consumerService.subscribe(title.getId(), email);
+        Subscription newSubscription = new Subscription(title, email);
+        subscriptionRepository.save(newSubscription);
+        //consumerService.subscribe(title.getId(), email);
     }
 }

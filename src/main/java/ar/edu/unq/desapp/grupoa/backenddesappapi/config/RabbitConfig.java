@@ -16,6 +16,8 @@ public class RabbitConfig {
     @Value("${rabbitmq.uri}")
     private String uri;
     private Connection connectionInstance = null;
+    public final String EXCHANGE_NAME = "title_exchange";
+    public final String QUEUE_NAME = "title_queue";
 
     public Connection getConnectionInstance() {
         try {
