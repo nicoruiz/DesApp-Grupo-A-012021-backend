@@ -3,6 +3,8 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.CreateReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.DislikeReviewEvent;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.LikeReviewEvent;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.NewReviewEvent;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
@@ -76,12 +78,16 @@ public class ReviewService {
     public ReviewDto like(long reviewId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
         review.like();
+        this.publishLikeReviewEvent();
+
         return mapperUtil.getMapper().map(review, ReviewDto.class);
     }
 
     public ReviewDto dislike(long reviewId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
         review.dislike();
+        this.publishDislikeReviewEvent();
+
         return mapperUtil.getMapper().map(review, ReviewDto.class);
     }
 
@@ -97,5 +103,17 @@ public class ReviewService {
         NewReviewEvent newReviewEvent = new NewReviewEvent(reviewDto);
         // Publish event to rabbitmq
         publisherService.publish(newReviewEvent);
+    }
+
+    private void publishLikeReviewEvent() {
+        LikeReviewEvent likeReviewEvent = new LikeReviewEvent();
+        // Publish event to rabbitmq
+        publisherService.publish(likeReviewEvent);
+    }
+
+    private void publishDislikeReviewEvent() {
+        DislikeReviewEvent disLikeReviewEvent = new DislikeReviewEvent();
+        // Publish event to rabbitmq
+        publisherService.publish(disLikeReviewEvent);
     }
 }

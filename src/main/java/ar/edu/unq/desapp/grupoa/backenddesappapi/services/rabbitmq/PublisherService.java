@@ -18,14 +18,14 @@ public class PublisherService {
     private RabbitConfig rabbitConfig;
 
     public <T extends Event> void publish(T event) {
+        String exchangeName = event.getClass().getSimpleName().concat("_Exchange");
         try {
             Connection connection = rabbitConfig.getConnectionInstance();
             Channel channel = connection.createChannel();
-            channel.exchangeDeclare(rabbitConfig.EXCHANGE_NAME, "fanout");
+            channel.exchangeDeclare(exchangeName, "fanout");
 
             String jsonEvent = new Gson().toJson(event, event.getClass());
-            channel.basicPublish(rabbitConfig.EXCHANGE_NAME, "", null, jsonEvent.getBytes(StandardCharsets.UTF_8));
-            rabbitConfig.closeChannel(channel);
+            channel.basicPublish(exchangeName, "", null, jsonEvent.getBytes(StandardCharsets.UTF_8));
         }
         catch (IOException ex) {
             throw new RabbitChannelUseException();

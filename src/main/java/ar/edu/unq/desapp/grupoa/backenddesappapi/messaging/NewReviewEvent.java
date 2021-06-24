@@ -7,11 +7,9 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.EmailSenderService;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
-@Component
 @Data
 public class NewReviewEvent implements Serializable, Event {
     private ReviewDto reviewDto;

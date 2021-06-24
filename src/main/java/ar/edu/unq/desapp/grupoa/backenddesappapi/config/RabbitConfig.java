@@ -16,7 +16,6 @@ public class RabbitConfig {
     @Value("${rabbitmq.uri}")
     private String uri;
     private Connection connectionInstance = null;
-    public final String EXCHANGE_NAME = "resena_exchange";
 
     public Connection getConnectionInstance() {
         try {
@@ -30,15 +29,6 @@ public class RabbitConfig {
         }
         catch (Exception ex) {
             throw new RabbitConnectionException();
-        }
-    }
-
-    public void closeChannel(Channel channel) {
-        try {
-            channel.close();
-        }
-        catch (TimeoutException | IOException ex) {
-            throw new RabbitChannelUseException();
         }
     }
 }

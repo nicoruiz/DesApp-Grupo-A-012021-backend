@@ -19,20 +19,23 @@ public class ConsumerService {
     private RabbitConfig rabbitConfig;
 
     public <T extends Event> void subscribe(Class<T> eventClass)  {
+        String exchangeName = eventClass.getSimpleName().concat("_Exchange");
+        String queueName = eventClass.getSimpleName().concat("_Queue");
+
         try {
             Connection connection = rabbitConfig.getConnectionInstance();
             Channel channel = connection.createChannel();
 
-            channel.exchangeDeclare(rabbitConfig.EXCHANGE_NAME, "fanout");
-            String queueName = channel.queueDeclare(eventClass.getSimpleName(), true, false, false, null).getQueue();
-            channel.queueBind(queueName, rabbitConfig.EXCHANGE_NAME, "");
+            channel.exchangeDeclare(exchangeName, "fanout");
+            String createdQueueName = channel.queueDeclare(queueName, true, false, false, null).getQueue();
+            channel.queueBind(createdQueueName, exchangeName, "");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String jsonEvent = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 T event = new Gson().fromJson(jsonEvent, eventClass);
                 event.handle();
             };
-            channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+            channel.basicConsume(createdQueueName, true, deliverCallback, consumerTag -> { });
         }
         catch (IOException ex) {
             throw new RabbitChannelUseException();
