@@ -5,12 +5,18 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.core.importer.Location;
 import com.tngtech.archunit.lang.ArchRule;
+
+import static com.tngtech.archunit.base.DescribedPredicate.not;
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.equivalentTo;
+import static com.tngtech.archunit.lang.conditions.ArchPredicates.are;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import com.tngtech.archunit.library.Architectures.LayeredArchitecture;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 import javax.persistence.Entity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.stream.Collectors;
 
 public class ArchitectureTests {
 
@@ -30,8 +36,9 @@ public class ArchitectureTests {
                 .layer("Controller").definedBy("..controllers..")
                 .layer("Service").definedBy("..services..")
                 .layer("Persistence").definedBy("..persistence..")
+                .layer("Configuration").definedBy("..config..")
                 .whereLayer("Controller").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller", "Security")
+                .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller", "Security", "Configuration")
                 .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service", "Security");
 
         arch.check(classes);
