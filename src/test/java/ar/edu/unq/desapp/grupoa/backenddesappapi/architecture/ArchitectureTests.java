@@ -37,9 +37,10 @@ public class ArchitectureTests {
                 .layer("Service").definedBy("..services..")
                 .layer("Persistence").definedBy("..persistence..")
                 .layer("Configuration").definedBy("..config..")
+                .layer("Messaging").definedBy("..messaging..")
                 .whereLayer("Controller").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller", "Security", "Configuration")
-                .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service", "Security");
+                .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller", "Security", "Configuration", "Messaging")
+                .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service", "Security", "Messaging");
 
         arch.check(classes);
     }

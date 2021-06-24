@@ -55,6 +55,5 @@ public class TitleService {
 
         Subscription newSubscription = new Subscription(title, email);
         subscriptionRepository.save(newSubscription);
-        //consumerService.subscribe(title.getId(), email);
     }
 }

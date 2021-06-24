@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.CreateReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.NewReviewEvent;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
@@ -54,7 +55,7 @@ public class ReviewService {
         reviewRepository.save(newReview);
 
         ReviewDto reviewDto = mapperUtil.getMapper().map(newReview, ReviewDto.class);
-        publisherService.publish(reviewDto); // Publish to rabbitmq queue
+        this.publishNewReviewEvent(reviewDto);
 
         return reviewDto;
     }
@@ -88,5 +89,13 @@ public class ReviewService {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
         review.report(report);
         return mapperUtil.getMapper().map(review, ReviewDto.class);
+    }
+
+    /*** Private methods ***/
+
+    private void publishNewReviewEvent(ReviewDto reviewDto) {
+        NewReviewEvent newReviewEvent = new NewReviewEvent(reviewDto);
+        // Publish event to rabbitmq
+        publisherService.publish(newReviewEvent);
     }
 }

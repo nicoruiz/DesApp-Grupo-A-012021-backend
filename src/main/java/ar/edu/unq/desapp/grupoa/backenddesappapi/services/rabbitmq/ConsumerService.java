@@ -1,12 +1,8 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.RabbitConfig;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Subscription;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.RabbitChannelUseException;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.services.EmailSenderService;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.Event;
 import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -21,50 +17,25 @@ import java.nio.charset.StandardCharsets;
 public class ConsumerService {
     @Autowired
     private RabbitConfig rabbitConfig;
-    @Autowired
-    private EmailSenderService emailSenderService;
-    @Autowired
-    private TitleRepository titleRepository;
 
-    public void subscribe() {
+    public <T extends Event> void subscribe(Class<T> eventClass)  {
         try {
             Connection connection = rabbitConfig.getConnectionInstance();
             Channel channel = connection.createChannel();
 
             channel.exchangeDeclare(rabbitConfig.EXCHANGE_NAME, "fanout");
-            String queueName = channel.queueDeclare(rabbitConfig.QUEUE_NAME, true, false, false, null).getQueue();
+            String queueName = channel.queueDeclare(eventClass.getSimpleName(), true, false, false, null).getQueue();
             channel.queueBind(queueName, rabbitConfig.EXCHANGE_NAME, "");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                String jsonReviewDto = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                ReviewDto review = new Gson().fromJson(jsonReviewDto, ReviewDto.class);
-                this.notify(review);
+                String jsonEvent = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                T event = new Gson().fromJson(jsonEvent, eventClass);
+                event.handle();
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
         }
         catch (IOException ex) {
             throw new RabbitChannelUseException();
         }
-    }
-
-    private void notify(ReviewDto review) {
-        String titleId = review.getTitleId();
-        Title title = titleRepository.findById(titleId).get();
-
-        for (Subscription sub : title.getSubscriptions()) {
-            this.sendEmail(review, sub.getEmail());
-        }
-    }
-
-    private void sendEmail(ReviewDto review, String destinationEmail) {
-        String subject = "New Reviews for Title: " + review.getTitlePrimaryTitle();
-        String body = " - Resume: " + review.getResume() +
-                    "\n - Body: " + review.getBody() +
-                    "\n - Type: " + review.getReviewType() +
-                    "\n - Rating: " + review.getRating() +
-                    "\n - Platform: " + review.getPlatformUsername() +
-                    "\n - User: " + review.getUsername();
-
-        emailSenderService.sendEmail(destinationEmail, subject, body);
     }
 }
