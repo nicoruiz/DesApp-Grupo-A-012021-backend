@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -66,7 +67,7 @@ public class ReviewController {
     }
 
     @PostMapping(value = "/reviews/{titleId}")
-    public ResponseEntity<ReviewDto> createReview(@RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
+    public ResponseEntity<ReviewDto> createReview(@Valid @RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
         return ResponseEntity.ok().body(reviewService.create(createReviewDto, titleId));
     }
 
@@ -81,25 +82,25 @@ public class ReviewController {
     }
 
     @PostMapping(value = "/reviews/{reviewId}/spoiler")
-    public ResponseEntity<ReviewDto> reportSpoiler(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportSpoiler(@Valid @RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
         SpoilerReport report = mapperUtil.getMapper().map(reportDto, SpoilerReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
     
     @PostMapping(value = "/reviews/{reviewId}/bad-words")
-    public ResponseEntity<ReviewDto> reportBadWords(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportBadWords(@Valid @RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
         BadWordsReport report = mapperUtil.getMapper().map(reportDto, BadWordsReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
     
     @PostMapping(value = "/reviews/{reviewId}/offensive")
-    public ResponseEntity<ReviewDto> reportOffensive(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportOffensive(@Valid @RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
         OffensiveReport report = mapperUtil.getMapper().map(reportDto, OffensiveReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }
     
     @PostMapping(value = "/reviews/{reviewId}/no-sense")
-    public ResponseEntity<ReviewDto> reportNoSense(@RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
+    public ResponseEntity<ReviewDto> reportNoSense(@Valid @RequestBody CreateReportDto reportDto, @PathVariable long reviewId) {
         NoSenseReport report = mapperUtil.getMapper().map(reportDto, NoSenseReport.class);
         return ResponseEntity.ok().body(reviewService.report(reviewId, report));
     }

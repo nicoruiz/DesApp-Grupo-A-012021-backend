@@ -34,6 +34,7 @@ public class PlatformsService {
     private MapperUtil mapperUtil;
 
     public JwtResponseDto login(AuthRequestDto authRequest) {
+        authRequest.toLowerCaseCredentials();
         authenticate(authRequest.getUsername(), authRequest.getPassword());
 
         UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authRequest.getUsername());
@@ -67,7 +68,7 @@ public class PlatformsService {
     }
 
     private void verifyCredentials(AuthRequestDto authRequestDto) {
-        authRequestDto.verifyCredentials();
+        authRequestDto.toLowerCaseCredentials();
         this.verifyUsername(authRequestDto.getUsername());
     }
 

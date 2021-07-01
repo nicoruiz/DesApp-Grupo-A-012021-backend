@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.controllers;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.PageConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.CreateSubscriptionDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.TitleService;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @RestController
@@ -50,8 +53,12 @@ public class TitleController {
     }
 
     @PostMapping(value = "/titles/{id}/subscription")
-    public ResponseEntity<String> subscribeToTitleReviews(@PathVariable String id, @RequestBody String email) {
-        titleService.subscribeToTitleNews(id, email);
+    public ResponseEntity<String> subscribeToTitleReviews(
+            @PathVariable String id,
+            @Valid
+            @RequestBody CreateSubscriptionDto createSubscriptionDto
+    ) {
+        titleService.subscribeToTitleNews(id, createSubscriptionDto.getEmail());
         return ResponseEntity.ok().body("Subscribed!");
     }
 }

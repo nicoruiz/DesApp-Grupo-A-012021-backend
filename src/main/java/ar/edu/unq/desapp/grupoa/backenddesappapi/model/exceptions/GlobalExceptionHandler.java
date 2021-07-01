@@ -4,13 +4,15 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -111,6 +113,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException exception
+    ){
+        return buildErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                exception.getBindingResult()
+                        .getFieldErrors().stream()
+                        .map(x -> x.getDefaultMessage())
+                        .collect(Collectors.joining(", "))
+        );
+    }
+
     private ResponseEntity<ErrorResponseDto> buildErrorResponse(
             HttpStatus httpStatus,
             Exception exception
@@ -118,6 +134,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponseDto errorResponse = new ErrorResponseDto(
                 httpStatus.value(),
                 exception.getMessage()
+        );
+        return ResponseEntity.status(httpStatus).body(errorResponse);
+    }
+
+    private ResponseEntity<ErrorResponseDto> buildErrorResponse(
+            HttpStatus httpStatus,
+            String message
+    ) {
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                httpStatus.value(),
+                message
         );
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }

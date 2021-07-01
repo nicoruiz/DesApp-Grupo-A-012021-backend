@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @EnableAutoConfiguration
 @Api(tags = "Platforms")
@@ -20,12 +22,12 @@ public class PlatformController {
     private PlatformsService platformsService;
 
     @PostMapping(value = "/authentication")
-    public ResponseEntity<JwtResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
+    public ResponseEntity<JwtResponseDto> login(@Valid @RequestBody AuthRequestDto authRequestDto) {
             return ResponseEntity.ok().body(platformsService.login(authRequestDto));
     }
 
     @PostMapping(value = "/registration")
-    public ResponseEntity<RegistrationResponseDto> register(@RequestBody AuthRequestDto authRequestDto) {
+    public ResponseEntity<RegistrationResponseDto> register(@Valid @RequestBody AuthRequestDto authRequestDto) {
         return ResponseEntity.ok().body(platformsService.register(authRequestDto));
     }
 
