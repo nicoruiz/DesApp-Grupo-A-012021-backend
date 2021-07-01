@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.config.PageConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.config.SortConfig;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleResumeDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.services.TitleService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.sorting.TitleSortHelper;
 import io.swagger.annotations.Api;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.cache.annotation.Cacheable;
 
 @RestController
 @EnableAutoConfiguration
@@ -53,5 +55,11 @@ public class TitleController {
     public ResponseEntity<String> subscribeToTitleReviews(@PathVariable String id, @RequestBody String email) {
         titleService.subscribeToTitleNews(id, email);
         return ResponseEntity.ok().body("Subscribed!");
+    }
+    
+    @GetMapping("/title/{id}")
+    @Cacheable(value="title", key="#id")
+    public TitleResumeDto getTitleResume(@PathVariable String id) {
+        return titleService.getTitleResume(id);
     }
 }
