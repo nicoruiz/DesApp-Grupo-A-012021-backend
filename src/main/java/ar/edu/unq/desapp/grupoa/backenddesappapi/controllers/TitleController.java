@@ -49,11 +49,6 @@ public class TitleController {
         return ResponseEntity.ok().body(this.titleService.getByCriteria(params, pagingSort));
     }
 
-    @GetMapping("/titles/{id}")
-    public ResponseEntity<TitleDto> getTitle(@PathVariable String id) {
-        return ResponseEntity.ok().body(titleService.getById(id));
-    }
-
     @PostMapping(value = "/titles/{id}/subscription")
     public ResponseEntity<String> subscribeToTitleReviews(
             @PathVariable String id,
@@ -64,9 +59,9 @@ public class TitleController {
         return ResponseEntity.ok().body("Subscribed!");
     }
     
-    @GetMapping("/title/{id}")
+    @GetMapping("/titles/{id}")
     @Cacheable(value="title", key="#id")
     public TitleResumeDto getTitleResume(@PathVariable String id) {
-        return titleService.getTitleResume(id);
+        return titleService.getById(id);
     }
 }

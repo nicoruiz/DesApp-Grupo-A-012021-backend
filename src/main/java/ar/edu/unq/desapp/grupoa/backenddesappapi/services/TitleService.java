@@ -43,13 +43,6 @@ public class TitleService {
         return Arrays.asList(mapperUtil.getMapper().map(titles.toList(), TitleDto[].class));
     }
 
-    public TitleDto getById(String id) {
-        Title title = this.titleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Title", id));
-
-        return mapperUtil.getMapper().map(title, TitleDto.class);
-    }
-
     public void subscribeToTitleNews(String id, String email) {
         Title title = this.titleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Title", id));
@@ -58,19 +51,10 @@ public class TitleService {
         subscriptionRepository.save(newSubscription);
     }
     
-    public TitleResumeDto getTitleResume(String id) {
-        Title title = titleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Title", id));
-        return createTitleResume(title);
-    }
-    
-    private TitleResumeDto createTitleResume(Title title) {
-        TitleResumeDto titleResumeDto = new TitleResumeDto();
-        titleResumeDto.setId(title.getId());
-        titleResumeDto.setPrimaryTitle(title.getPrimaryTitle());
-        titleResumeDto.setTitleType(title.getTitleType());
-        titleResumeDto.setStartYear(title.getStartYear());
-        titleResumeDto.setAverageRating(title.getAverageRating());
-        titleResumeDto.setAmountReviews(title.getReviews().size());
-        return titleResumeDto;
+    public TitleResumeDto getById(String id) {
+        Title title = titleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Title", id));
+
+        return mapperUtil.getMapper().map(title, TitleResumeDto.class);
     }
 }
