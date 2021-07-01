@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.SearchTitleParamsDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleResumeDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Subscription;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFoundException;
@@ -55,5 +56,21 @@ public class TitleService {
 
         Subscription newSubscription = new Subscription(title, email);
         subscriptionRepository.save(newSubscription);
+    }
+    
+    public TitleResumeDto getTitleResume(String id) {
+        Title title = titleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Title", id));
+        return createTitleResume(title);
+    }
+    
+    private TitleResumeDto createTitleResume(Title title) {
+        TitleResumeDto titleResumeDto = new TitleResumeDto();
+        titleResumeDto.setId(title.getId());
+        titleResumeDto.setPrimaryTitle(title.getPrimaryTitle());
+        titleResumeDto.setTitleType(title.getTitleType());
+        titleResumeDto.setStartYear(title.getStartYear());
+        titleResumeDto.setAverageRating(title.getAverageRating());
+        titleResumeDto.setAmountReviews(title.getReviews().size());
+        return titleResumeDto;
     }
 }
