@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import org.springframework.cache.annotation.CacheEvict;
 
 @RestController
 @EnableAutoConfiguration
@@ -67,6 +68,7 @@ public class ReviewController {
     }
 
     @PostMapping(value = "/reviews/{titleId}")
+    @CacheEvict(value = "title", key = "#titleId")
     public ResponseEntity<ReviewDto> createReview(@Valid @RequestBody CreateReviewDto createReviewDto, @PathVariable String titleId) {
         return ResponseEntity.ok().body(reviewService.create(createReviewDto, titleId));
     }

@@ -78,4 +78,8 @@ public class Title implements Serializable {
         return avgRating.isPresent() ?
                 avgRating.getAsDouble() : 0;
     }
+    
+    public int getAmountReviews() {
+        return this.reviews.size();
+    }
 }
