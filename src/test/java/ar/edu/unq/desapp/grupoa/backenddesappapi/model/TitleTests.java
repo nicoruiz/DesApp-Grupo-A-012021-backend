@@ -96,4 +96,32 @@ public class TitleTests {
         assertThat(savingPrivateRyan.getReviews().size()).isEqualTo(2);
         assertThat(avgRating).isEqualTo(4.5);
     }
+    
+    @Test
+    public void testAssignTwoReviewsToTitle_TitleHasTwoReviews() {
+        Review review1 = ReviewBuilder.aReview()
+                .withResume("Muy buena")
+                .withBody("Gran fotografía y escenografía")
+                .withReviewType(ReviewType.CRITIC)
+                .withRating(4.7)
+                .build();
+        Review review2 = ReviewBuilder.aReview()
+                .withResume("Mal doblaje")
+                .withBody("El doblaje latino no era muy bueno, lo demas ok")
+                .withReviewType(ReviewType.REVIEW)
+                .withRating(4.3)
+                .build();
+        Title savingPrivateRyan = TitleBuilder.aTitle()
+                .withId("tt0120815")
+                .withPrimaryTitle("Saving Private Ryan")
+                .withTitleType(TitleType.MOVIE)
+                .withStartYear(1998)
+                .withGenres("War")
+                .withReviews(Arrays.asList(review1, review2))
+                .build();
+
+        int amountReviews = savingPrivateRyan.getAmountReviews();
+
+        assertThat(amountReviews).isEqualTo(2);
+    }
 }
