@@ -1,8 +1,11 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.CreateReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.ReviewDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.CreateReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.ReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.SearchReviewParamsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.DislikeReviewEvent;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.LikeReviewEvent;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.messaging.NewReviewEvent;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
@@ -10,8 +13,9 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.EntityNotFound
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.Report;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.PlatformRepository;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.ReviewRepository;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.Specifications.ReviewSpecsBuilder;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.specifications.ReviewSpecsBuilder;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.persistence.TitleRepository;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.services.rabbitmq.PublisherService;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +41,8 @@ public class ReviewService {
     private MapperUtil mapperUtil;
     @Autowired
     private ReviewSpecsBuilder reviewSpecsBuilder;
+    @Autowired
+    private PublisherService publisherService;
 
     public ReviewDto create(CreateReviewDto createReviewDto, String titleId) {
         Title title = titleRepository.findById(titleId)
@@ -50,7 +56,10 @@ public class ReviewService {
         newReview.setPlatform(platform);
         reviewRepository.save(newReview);
 
-        return mapperUtil.getMapper().map(newReview, ReviewDto.class);
+        ReviewDto reviewDto = mapperUtil.getMapper().map(newReview, ReviewDto.class);
+        this.publishNewReviewEvent(reviewDto);
+
+        return reviewDto;
     }
 
     public List<ReviewDto> getAll(Pageable pagingSort) {
@@ -69,12 +78,16 @@ public class ReviewService {
     public ReviewDto like(long reviewId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
         review.like();
+        this.publishLikeReviewEvent();
+
         return mapperUtil.getMapper().map(review, ReviewDto.class);
     }
 
     public ReviewDto dislike(long reviewId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
         review.dislike();
+        this.publishDislikeReviewEvent();
+
         return mapperUtil.getMapper().map(review, ReviewDto.class);
     }
 
@@ -82,5 +95,25 @@ public class ReviewService {
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review", reviewId));
         review.report(report);
         return mapperUtil.getMapper().map(review, ReviewDto.class);
+    }
+
+    /*** Private methods ***/
+
+    private void publishNewReviewEvent(ReviewDto reviewDto) {
+        NewReviewEvent newReviewEvent = new NewReviewEvent(reviewDto);
+        // Publish event to rabbitmq
+        publisherService.publish(newReviewEvent);
+    }
+
+    private void publishLikeReviewEvent() {
+        LikeReviewEvent likeReviewEvent = new LikeReviewEvent();
+        // Publish event to rabbitmq
+        publisherService.publish(likeReviewEvent);
+    }
+
+    private void publishDislikeReviewEvent() {
+        DislikeReviewEvent disLikeReviewEvent = new DislikeReviewEvent();
+        // Publish event to rabbitmq
+        publisherService.publish(disLikeReviewEvent);
     }
 }

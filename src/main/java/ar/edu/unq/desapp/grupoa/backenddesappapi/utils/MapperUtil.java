@@ -1,15 +1,19 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.utils;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.PlatformDetailsDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.RegistrationResponseDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.titles.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.PlatformDetailsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.RegistrationResponseDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.reviews.CreateReviewDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.titles.TitleResumeDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Title;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MapperUtil {
+
     private final ModelMapper modelMapper;
 
     public MapperUtil() {
@@ -37,6 +41,17 @@ public class MapperUtil {
             mapper.map(Title::getPersonNames, TitleDto::setPersons);
             mapper.map(Title::getReviewResumes, TitleDto::setReviewResumes);
             mapper.map(Title::getAverageRating, TitleDto::setAverageRating);
+        });
+
+        // Review config
+        this.modelMapper.typeMap(CreateReviewDto.class, Review.class).addMappings(mapper -> {
+            mapper.skip(Review::setId);
+        });
+
+        // TitleResumeDto config
+        this.modelMapper.typeMap(Title.class, TitleResumeDto.class).addMappings(mapper -> {
+            mapper.map(Title::getAverageRating, TitleResumeDto::setAverageRating);
+            mapper.map(Title::getAmountReviews, TitleResumeDto::setAmountReviews);
         });
     }
 }

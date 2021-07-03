@@ -1,9 +1,9 @@
 package ar.edu.unq.desapp.grupoa.backenddesappapi.services;
 
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.AuthRequestDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.JwtResponseDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.PlatformDetailsDto;
-import ar.edu.unq.desapp.grupoa.backenddesappapi.controllers.dtos.RegistrationResponseDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.AuthRequestDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.JwtResponseDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.PlatformDetailsDto;
+import ar.edu.unq.desapp.grupoa.backenddesappapi.dtos.RegistrationResponseDto;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.Platform;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.NonExistentPlatformException;
 import ar.edu.unq.desapp.grupoa.backenddesappapi.model.exceptions.UsernameAlreadyExistsException;
@@ -34,6 +34,7 @@ public class PlatformsService {
     private MapperUtil mapperUtil;
 
     public JwtResponseDto login(AuthRequestDto authRequest) {
+        authRequest.toLowerCaseCredentials();
         authenticate(authRequest.getUsername(), authRequest.getPassword());
 
         UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authRequest.getUsername());
@@ -67,7 +68,7 @@ public class PlatformsService {
     }
 
     private void verifyCredentials(AuthRequestDto authRequestDto) {
-        authRequestDto.verifyCredentials();
+        authRequestDto.toLowerCaseCredentials();
         this.verifyUsername(authRequestDto.getUsername());
     }
 

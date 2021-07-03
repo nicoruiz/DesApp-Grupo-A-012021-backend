@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoa.backenddesappapi.model.report.Report;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import lombok.Data;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,7 +14,6 @@ import java.util.List;
 @Data
 @Entity
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

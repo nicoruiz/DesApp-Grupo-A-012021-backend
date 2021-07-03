@@ -36,6 +36,10 @@ public class Title implements Serializable {
     @JoinColumn(name = "title_id")
     @JsonIgnoreProperties("title")
     private List<Review> reviews;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "title_id")
+    @JsonIgnoreProperties("title")
+    private List<Subscription> subscriptions;
 
     public Title() {}
 
@@ -73,5 +77,9 @@ public class Title implements Serializable {
 
         return avgRating.isPresent() ?
                 avgRating.getAsDouble() : 0;
+    }
+    
+    public int getAmountReviews() {
+        return this.reviews.size();
     }
 }
