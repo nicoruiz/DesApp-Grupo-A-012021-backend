@@ -1,19 +1,15 @@
 ---------------------------------------------------------------------
-Release 2.0
+Release 3.0
 ---------------------------------------------------------------------
 NEW FEATURES:
-* Registración, autenticación y detalles de una Plataforma segurizado con JWT
-* API Endpoints segurizados con API-KEY (validación utilizando aspectos)
-* Aplicación frontend (Responsive, i18n, formatters de fechas, números, moneda)
-* Swagger
-* Buscar reseñas de un título (implementación completa con paginación y ordenamiento)
-* Reportar una reseña por diferentes motivos
-* Búsqueda inversa de un título (implementación completa con paginación y ordenamiento)
-* Utilización de DTO's y Automapping para el manejo de requests y evitar la exposición de entidades de dominio (ModelMapper)
-* Global exception handling para estandarizar la respuesta de errores de la API utilizando la clase ErrorResponse
+* Responsive web design del front end
+* Tests de arquitectura con Archunit
+* Auditoría de Web Services utilizando aspectos y Log4j
+* Validaciones del backend con Validation API (javax.validation)
+* Implementación de RabbitMQ para notificar al cliente de nuevas reseñas mediante el envío de mails
+* Implementación de Redis para consulta de alta performance de un titulo
 
 NOTES:
-* Los reportes y likes/dislikes a reseñas no tienen un tratamiento ni filtrado especial al momento buscarlas
+* Fix: filtro de búsqueda de titulos por rating deja de ser fijo y se puede enviar como query param.
 
 KNOWN ISSUES:
-* La base de datos MySql brindada por Heroku es bastante limitada con respecto a la cantidad de conexiones simultáneas
